@@ -15,6 +15,13 @@
 		<span id="channelTitle">Channels:<br /></span>
 		<span id="channelText"></span>
 	</div>
+        <div id="funding">
+                <span id="fundingTitle">Funding:<br /></span>
+                <span id="fundingText"></span><br />
+                Bech32?
+                <input id="bech32" type="checkbox" checked="checked"><br />
+                <input id="fundingButton" type="button" value="Generate Address"/>
+        </div>
 	<div id="invoices">
 		<span id="invoiceTitle">Invoices:<br /></span>
 		<span id="invoiceText"></span><br />
@@ -25,13 +32,6 @@
 		Generate QR Code?
 		<input id="invoiceQR" type="checkbox"/><br />
 		<input id="createInvoice" type="button" value="Create Invoice" />
-	</div>
-	<div id="funding">
-		<span id="fundingTitle">Funding:<br /></span>
-		<span id="fundingText"></span><br />
-		Bech32?
-		<input id="bech32" type="checkbox" checked="checked"><br />	
-		<input id="fundingButton" type="button" value="Generate Address"/>
 	</div>
         <div id="buttons">
 		<input id="clear" type="button" value="Clear Invoices/Addresses" />

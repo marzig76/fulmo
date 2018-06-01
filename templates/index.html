@@ -1,0 +1,34 @@
+<html>
+	<script type="text/javascript" src="{{url_for('static', filename='jquery-3.3.1.min.js')}}"></script>
+	<script type="text/javascript" src="{{url_for('static', filename='fulmo.js')}}"></script>
+	<title>&#9889;fulmoI&#9889;</title>
+</head>
+<body>
+	<h1>&#9889;fulmo: a minimalist c-lightning UI&#9889;</h1>
+	<div id="getinfo" style="border:1px solid black;">
+		<span id="getinfoTitle">LN Node Info<br /><span>
+		<span id="getinfoText"><span>
+	</div>
+	<div id="channels" style="border:1px solid black;">
+		<span id="channelTitle">Channels<br /></span>
+		<span id="channelText"></span>
+	</div>
+	<div id="payment" style="border:1px solid black;">Payment</div>
+	<div id="invoice" style="border:1px solid black;word-wrap: break-word;">
+		<span id="invoiceTitle">Invoices<br /><span>
+		<span id="invoiceText"><span>
+	</div>
+	<div id="buttons">
+		<span>
+			MilliSatoshis:
+			<input id="invoiceAmount" type="text" /><br />
+			Payment Description:
+			<input id="invoiceDescription" type="text" value="pizza"/><br />
+			Generate QR Code?
+			<input id="invoiceQR" type="checkbox"/><br />
+			<input id="createInvoice" type="button" value="Create Invoice" />
+		</span>
+                <input id="help" type="button" value="Help" />
+	</div>
+</body>
+</html>

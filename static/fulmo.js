@@ -13,7 +13,12 @@ $(document).ready(function() {
         $('#fundingButton').click(function() {
                 getNewAddr();
         });
-
+	
+	// clear button event
+        $('#clear').click(function() {
+                clear();
+        });
+	
 	// help button event
         $('#help').click(function() {
                 help();
@@ -67,6 +72,11 @@ function createInvoice(){
 		$('#invoiceText').html(data);
 		console.log( "Invoice: " + data );
         });
+}
+
+function clear(){
+	$('#invoiceText').html("");
+	$('#fundingText').html("");
 }
 
 function help(){

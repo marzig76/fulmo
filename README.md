@@ -27,7 +27,7 @@ cd fulmo
 ./fulmo
 ```
 
-This just open a web browser to http://localhost:5000
+Then just open a web browser to http://localhost:5000
 
 Notes
 ============

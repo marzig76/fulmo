@@ -39,7 +39,6 @@ def listchannels():
         return prepare(channels)
 
 def qr(data): 
-        print "QR DATA: " + data
         img = qrcode.make(data)
         filename = "static/qrcodes/" + data  + ".png"
         img.save(filename)

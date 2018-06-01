@@ -19,7 +19,7 @@
 		<span id="invoiceText"><span>
 	</div>
 	<div id="buttons">
-		<span>
+		<div id="invoiceButtons">
 			MilliSatoshis:
 			<input id="invoiceAmount" type="text" /><br />
 			Payment Description:
@@ -27,8 +27,12 @@
 			Generate QR Code?
 			<input id="invoiceQR" type="checkbox"/><br />
 			<input id="createInvoice" type="button" value="Create Invoice" />
-		</span>
-                <input id="help" type="button" value="Help" />
+		</div>
+		<div id="funding">	
+			<input id="fundingButton" type="button" value="Fund this node"/><br />
+			<span id="fundingText"></span>
+		</div>
+                <br /><br /><input id="help" type="button" value="Help" />
 	</div>
 </body>
 </html>

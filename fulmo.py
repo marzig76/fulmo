@@ -11,6 +11,11 @@ ln = LightningRpc("/tmp/lightning-rpc")
 def fulmo():
 	return render_template('index.html')
 
+@app.route("/newaddr/")
+def newaddr():
+	addr = ln.newaddr()
+	return addr['address'] + qr(addr['address'])
+
 @app.route("/getinfo/")
 def getinfo():
 	info = ln.getinfo()

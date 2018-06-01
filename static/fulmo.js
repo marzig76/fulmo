@@ -9,7 +9,12 @@ $(document).ready(function() {
 		createInvoice();
 	});
 
-        // help button event
+	// funding button event
+        $('#fundingButton').click(function() {
+                getNewAddr();
+        });
+
+	// help button event
         $('#help').click(function() {
                 help();
         });
@@ -29,6 +34,13 @@ function getinfo(){
                 $('#getinfoText').html(data);
 		console.log( "LN node stats: " + data );
         });	
+}
+
+function getNewAddr(){
+        $.get( "newaddr/", function( data ) {
+                $('#fundingText').html(data);
+                console.log( "New Address: " + data );
+        });
 }
 
 function listchannels(){

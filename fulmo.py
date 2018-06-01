@@ -13,7 +13,8 @@ def fulmo():
 
 @app.route("/newaddr/")
 def newaddr():
-	addr = ln.newaddr()
+	bech32 = request.args.get('type')
+	addr = ln.newaddr(bech32)
 	return addr['address'] + qr(addr['address'])
 
 @app.route("/getinfo/")

@@ -37,7 +37,11 @@ function getinfo(){
 }
 
 function getNewAddr(){
-        $.get( "newaddr/", function( data ) {
+	var addrURL = "newaddr/";
+        if ($('#bech32').is(':checked')){
+                addrURL = addrURL + "?type=bech32";
+        }
+	$.get( addrURL, function( data ) {
                 $('#fundingText').html(data);
                 console.log( "New Address: " + data );
         });

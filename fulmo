@@ -1,1 +1,1 @@
-FLASK_APP=fulmo.py flask run --host=192.168.0.100
+FLASK_APP=fulmo.py flask run 

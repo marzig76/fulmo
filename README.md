@@ -27,8 +27,14 @@ cd fulmo
 ./fulmo
 ```
 
-This just open a webbrowser to http://192.x.x.x:5000
+This just open a webbrowser to http://localhost:5000
 
 Notes
 ============
-You'll have to modify the fulmo batch file with your local ip.
+This will set up a web UI for you locally running c-lightning node.  By default, it will only be accessible through your localhost.  If you want to access it from another computer on your network (like running it on a raspberrypi, but accessing it from your laptop), then add your IP address to the fulmo batch file before you run ./fulmo:
+
+```script
+--host=192.168.0.100
+```
+
+Then you can access it from anywhere in your local network by pointing your browser to it, like http://192.168.0.100:5000

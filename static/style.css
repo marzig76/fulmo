@@ -1,0 +1,29 @@
+#getinfo {
+	width: 500px;
+	border: 1px solid black;
+	overflow-wrap: break-word;
+	margin: 10px;
+}
+#channels {
+	width: 500px;
+	border: 1px solid red;
+	margin: 10px;
+}
+#invoices {
+        width: 500px;
+        position: relative;
+	border: 1px solid green;
+	overflow-wrap: break-word;
+	margin: 10px;
+}
+
+#funding {
+	width: 500px;
+        border: 1px solid blue;
+        overflow-wrap: break-word;
+	margin: 10px;
+}
+#buttons{
+	width: 500px;
+	margin: 10px;
+}

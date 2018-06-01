@@ -1,40 +1,39 @@
 <html>
-	<script type="text/javascript" src="{{url_for('static', filename='jquery-3.3.1.min.js')}}"></script>
-	<script type="text/javascript" src="{{url_for('static', filename='fulmo.js')}}"></script>
+<head>
+	<script type="text/javascript" src="{{ url_for('static', filename='jquery-3.3.1.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='fulmo.js') }}"></script>
+	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
 	<title>&#9889;fulmo&#9889;</title>
 </head>
 <body>
 	<h1>&#9889;fulmo: a minimalist c-lightning UI&#9889;</h1>
-	<div id="getinfo" style="border:1px solid black;">
-		<span id="getinfoTitle">LN Node Info<br /><span>
+	<div id="getinfo">
+		<span id="getinfoTitle">LN Node Info:<br /><span>
 		<span id="getinfoText"><span>
 	</div>
-	<div id="channels" style="border:1px solid black;">
-		<span id="channelTitle">Channels<br /></span>
+	<div id="channels">
+		<span id="channelTitle">Channels:<br /></span>
 		<span id="channelText"></span>
 	</div>
-	<div id="payment" style="border:1px solid black;">Payment</div>
-	<div id="invoice" style="border:1px solid black;word-wrap: break-word;">
-		<span id="invoiceTitle">Invoices<br /><span>
-		<span id="invoiceText"><span>
+	<div id="invoices">
+		<span id="invoiceTitle">Invoices:<br /></span>
+		<span id="invoiceText"></span><br />
+		MilliSatoshis:
+		<input id="invoiceAmount" type="text" value="100000"/><br />
+		Payment Description:
+		<input id="invoiceDescription" type="text" value="pizza"/><br />
+		Generate QR Code?
+		<input id="invoiceQR" type="checkbox"/><br />
+		<input id="createInvoice" type="button" value="Create Invoice" />
 	</div>
-	<div id="buttons">
-		<div id="invoiceButtons">
-			MilliSatoshis:
-			<input id="invoiceAmount" type="text" /><br />
-			Payment Description:
-			<input id="invoiceDescription" type="text" value="pizza"/><br />
-			Generate QR Code?
-			<input id="invoiceQR" type="checkbox"/><br />
-			<input id="createInvoice" type="button" value="Create Invoice" />
-		</div>
-		<div id="funding">
-			Bech32?
-			<input id="bech32" type="checkbox" checked="checked"><br />	
-			<input id="fundingButton" type="button" value="Fund this node"/>
-			<span id="fundingText"></span>
-		</div>
-                <br /><br />
+	<div id="funding">
+		<span id="fundingTitle">Funding:<br /></span>
+		<span id="fundingText"></span><br />
+		Bech32?
+		<input id="bech32" type="checkbox" checked="checked"><br />	
+		<input id="fundingButton" type="button" value="Generate Address"/>
+	</div>
+        <div id="buttons">
 		<input id="clear" type="button" value="Clear Invoices/Addresses" />
 		<input id="help" type="button" value="Help" />
 	</div>

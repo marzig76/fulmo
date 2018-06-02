@@ -6,6 +6,12 @@ Dependencies
 
 You must have a [bitcoin full node](https://github.com/bitcoin/bitcoin) and [c-lightning](https://github.com/ElementsProject/lightning) installed and running.
 
+Make sure python, pip, and git are installed:
+
+```shell
+sudo apt-get install python python-pip python-dev build-essential git
+```
+
 Install the following python modules:
 ```shell
 sudo pip install pylightning Flask qrcode[pil]

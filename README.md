@@ -20,7 +20,7 @@ sudo pip install pylightning Flask qrcode[pil]
 Installation
 ============
 
-Add this to your ~/.lightning/config file:
+Add this to your ~/.lightning/config file and restart your c-lightning node:
 ```shell
 rpc-file=/tmp/lightning-rpc
 ```

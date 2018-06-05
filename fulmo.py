@@ -20,7 +20,17 @@ def newaddr():
 @app.route("/getinfo/")
 def getinfo():
 	info = ln.getinfo()
-	return prepare(info)
+	return prepare(info) + "On-chain Balance: " + str(listfunds()) + " Millisatoshis"
+
+@app.route("/listfunds/")
+def listfunds():
+	balance = 0;
+        funds = ln.listfunds()
+	for item in funds['outputs']:
+		balance = balance + item["value"]
+	
+        return str(balance)
+
 
 @app.route("/invoice/")
 def invoice():

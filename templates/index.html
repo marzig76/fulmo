@@ -7,13 +7,21 @@
 </head>
 <body>
 	<h1>&#9889;fulmo: a minimalist c-lightning UI&#9889;</h1>
+	<div id="tabs">
+		<input id="shownodeinfo" type="button" value="Node Info" />
+		<input id="showchannelspeers" type="button" value="Channels and Peers" />
+		<input id="showpayments" type="button" value="Payments" />
+		<input id="showall" type="button" value="Show All" />
+	</div>
 	<div id="getinfo">
 		<span id="getinfoTitle">LN Node Info:<br /><span>
 		<span id="getinfoText"><span>
 	</div>
 	<div id="channels">
 		<span id="channelTitle">Channels:<br /></span>
-		<span id="channelText"></span>
+		<span id="channelText"></span><br />
+		<input id="connection" type="text" value="NodeID@IPaddress:Port"><br />
+		<input id="connect" type="button" value="Connect">
 	</div>
         <div id="funding">
                 <span id="fundingTitle">Funding:<br /></span>

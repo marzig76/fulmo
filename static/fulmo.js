@@ -1,8 +1,18 @@
 $(document).ready(function() {
 
 	console.log('Document Ready');
-
+	
+	defaultView();
 	refresh();
+
+	// ------------------------------
+	// butten handlers
+	
+	// connect to a node
+	$('#connect').click(function() {
+		connect();
+		listchannels();	
+        });
 
 	// create invoice button event
 	$('#createInvoice').click(function() {
@@ -23,10 +33,55 @@ $(document).ready(function() {
         $('#help').click(function() {
                 help();
         });
+	// ------------------------------
+
+	// ------------------------------
+	// display/navigation
+
+        // show node info - default view
+        $('#shownodeinfo').click(function() {
+		defaultView();
+        });
+
+        // show channels and peers
+        $('#showchannelspeers').click(function() {
+                $('#getinfo').hide();
+                $('#channels').show();
+                $('#funding').hide();
+                $('#invoices').hide();
+		$('#buttons').hide();
+	});
+
+        // show payments and invoices
+        $('#showpayments').click(function() {
+                $('#getinfo').hide();
+                $('#channels').hide();
+                $('#funding').show();
+                $('#invoices').show();
+		$('#buttons').show();
+	});
+
+        // show all
+        $('#showall').click(function() {
+                $('#getinfo').show();
+                $('#channels').show();
+                $('#funding').show();
+                $('#invoices').show();
+		$('#buttons').show();
+        });
+	// ------------------------------
 
 	// refresh statuses
 	window.setInterval(refresh, 30000);
 });
+
+function defaultView(){
+	$('#getinfo').show();
+        $('#channels').hide();
+        $('#funding').hide();
+        $('#invoices').hide();
+	$('#buttons').hide();
+}
 
 function refresh(){
 	console.log("refresh");	
@@ -39,6 +94,16 @@ function getinfo(){
                 $('#getinfoText').html(data);
 		console.log( "LN node stats: " + data );
         });	
+}
+
+function connect(){
+	var connectEndpoint = "connect/";
+	var node = $('#connection').val();
+	var connectURL = connectEndpoint + "?c=" + node
+	
+        $.get( connectURL, function( data ) {
+                console.log( "Connection: " + data );
+        });
 }
 
 function getNewAddr(){

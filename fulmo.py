@@ -31,7 +31,6 @@ def listfunds():
 	
         return str(balance)
 
-
 @app.route("/invoice/")
 def invoice():
 	make_qr = request.args.get("qr")
@@ -51,8 +50,19 @@ def help():
 
 @app.route("/listchannels/")
 def listchannels():
-        channels = ln.listchannels()
+        channels = ln.listpeers()
+	print str(channels)
         return prepare(channels)
+
+@app.route("/connect/")
+def connect():
+	connection_string = request.args.get("c")
+	nodeID = connection_string[:connection_string.find("@")]
+	ip = connection_string[connection_string.find("@")+1:connection_string.find(":")]
+	port = connection_string[connection_string.find(":")+1:]
+
+	connect = ln.connect(nodeID, ip, port)
+	return prepare(connect)
 
 def qr(data): 
         img = qrcode.make(data)

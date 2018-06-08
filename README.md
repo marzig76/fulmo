@@ -37,7 +37,7 @@ Then just open a web browser to http://localhost:5000
 
 Notes
 ============
-This will set up a web UI for you locally running c-lightning node.  By default, it will only be accessible through your localhost.  If you want to access it from another computer on your network (like running it on a raspberrypi, but accessing it from your laptop), then add your IP address to the fulmo batch file before you run ./fulmo:
+This will set up a web UI for your locally running c-lightning node.  By default, it will only be accessible through your localhost.  If you want to access it from another computer on your network (like running it on a raspberrypi, but accessing it from your laptop), then add your IP address to the fulmo batch file before you run ./fulmo:
 
 ```script
 FLASK_APP=fulmo.py flask run --host=192.168.0.100

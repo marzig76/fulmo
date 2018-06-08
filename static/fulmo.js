@@ -6,9 +6,9 @@ $(document).ready(function() {
 	refresh();
 
 	// ------------------------------
-	// butten handlers
+	// button handlers
 	
-	// connect to a node
+	// connect button event
 	$('#connect').click(function() {
 		connect();
 		listchannels();	

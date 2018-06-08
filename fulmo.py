@@ -20,7 +20,7 @@ def newaddr():
 @app.route("/getinfo/")
 def getinfo():
 	info = ln.getinfo()
-	return prepare(info) + "On-chain Balance: " + str(listfunds()) + " Millisatoshis"
+	return prepare(info) + "On-chain Balance: " + str(listfunds()) + " Satoshis"
 
 @app.route("/listfunds/")
 def listfunds():
@@ -56,13 +56,23 @@ def listchannels():
 
 @app.route("/connect/")
 def connect():
+	satoshis = request.args.get("satoshis")
 	connection_string = request.args.get("c")
 	nodeID = connection_string[:connection_string.find("@")]
 	ip = connection_string[connection_string.find("@")+1:connection_string.find(":")]
 	port = connection_string[connection_string.find(":")+1:]
 
-	connect = ln.connect(nodeID, ip, port)
-	return prepare(connect)
+	try:
+		connect = ln.connect(nodeID, ip, port)
+		result = fundChannel(connect["id"], satoshis)
+	except ValueError, e:
+		result = e
+		
+	return str(result)
+
+def fundChannel(nodeID, satoshis):
+	fundResult = ln.fundchannel(nodeID, satoshis)
+	return str(fundResult)
 
 def qr(data): 
         img = qrcode.make(data)

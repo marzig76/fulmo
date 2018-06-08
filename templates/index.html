@@ -20,10 +20,15 @@
 	<div id="channels">
 		<span id="channelTitle">Channels:<br /></span>
 		<span id="channelText"></span><br />
-		<input id="connection" type="text" value="NodeID@IPaddress:Port"><br />
-		<input id="connect" type="button" value="Connect">
 	</div>
-        <div id="funding">
+        <div id="connections">
+                <span id="connectionTitle">Open a Channel:<br /></span>
+                <span id="connectionText"></span><br />
+                <input id="connection" type="text" value="NodeID@IPaddress:Port" size="50"><br />
+		<input id="connectionAmount" type="number" value="100000"><br />
+                <input id="connect" type="button" value="Connect">
+	</div>
+	<div id="funding">
                 <span id="fundingTitle">Funding:<br /></span>
                 <span id="fundingText"></span><br />
                 Bech32?
@@ -41,9 +46,11 @@
 		<input id="invoiceQR" type="checkbox"/><br />
 		<input id="createInvoice" type="button" value="Create Invoice" />
 	</div>
-        <div id="buttons">
-		<input id="clear" type="button" value="Clear Invoices/Addresses" />
-		<input id="help" type="button" value="Help" />
+	<div id="buttons">
+		<input id="clear" type="button" value="Clear" />
+		<div id="help" title="Press F12 and go to the JavaScript console for Help">
+			<input id="help" type="button" value="Help" />
+		</div>
 	</div>
 </body>
 </html>

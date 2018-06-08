@@ -49,7 +49,8 @@ $(document).ready(function() {
                 $('#channels').show();
                 $('#funding').hide();
                 $('#invoices').hide();
-		$('#buttons').hide();
+		$('#buttons').show();
+		$('#connections').show();
 	});
 
         // show payments and invoices
@@ -59,6 +60,7 @@ $(document).ready(function() {
                 $('#funding').show();
                 $('#invoices').show();
 		$('#buttons').show();
+		$('#connections').hide();
 	});
 
         // show all
@@ -68,6 +70,7 @@ $(document).ready(function() {
                 $('#funding').show();
                 $('#invoices').show();
 		$('#buttons').show();
+		$('#connections').show();
         });
 	// ------------------------------
 
@@ -81,6 +84,7 @@ function defaultView(){
         $('#funding').hide();
         $('#invoices').hide();
 	$('#buttons').hide();
+	$('#connections').hide();
 }
 
 function refresh(){
@@ -100,9 +104,12 @@ function connect(){
 	var connectEndpoint = "connect/";
 	var node = $('#connection').val();
 	var connectURL = connectEndpoint + "?c=" + node
+	var satoshis = Number($('#connectionAmount').val());
+	connectURL = connectURL + "&satoshis=" + satoshis;
 	
         $.get( connectURL, function( data ) {
-                console.log( "Connection: " + data );
+                $('#connectionText').html(data);
+		// console.log( "Connection: " + data );
         });
 }
 
@@ -142,6 +149,7 @@ function createInvoice(){
 function clear(){
 	$('#invoiceText').html("");
 	$('#fundingText').html("");
+	$('#connectionText').html("");
 }
 
 function help(){

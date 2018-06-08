@@ -9,6 +9,11 @@
 	border: 1px solid red;
 	margin: 10px;
 }
+#connections {
+        width: 500px;
+        border: 1px solid red;
+        margin: 10px;
+}
 #invoices {
 	width: 500px;
 	position: relative;

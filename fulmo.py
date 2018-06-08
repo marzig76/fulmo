@@ -2,6 +2,7 @@ from lightning import LightningRpc
 from flask import Flask, request, render_template
 import random
 import qrcode
+import json
 app = Flask(__name__)
 
 # Connect to local LN node
@@ -51,8 +52,24 @@ def help():
 @app.route("/listchannels/")
 def listchannels():
         channels = ln.listpeers()
-	print str(channels)
-        return prepare(channels)
+	data = {}
+
+	# loop through all peers
+	# get either the connection state, or channel state
+	# only looking at the first channel for each peer (where [0] is explicitly referenced)
+	# need to implement another loop in case there are multiple
+	for key,value in channels.iteritems():
+		for i, val in enumerate(value):
+			data[i] = {}
+			data[i]["alias"] = val["alias"]
+			data[i]["id"] = val["id"]
+			try:
+				data[i]["state"] = val["state"]
+			except:
+				data[i]["state"] = val["channels"][0]["state"]
+	
+	json_data = json.dumps(data)
+        return json_data
 
 @app.route("/connect/")
 def connect():

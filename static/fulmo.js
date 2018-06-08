@@ -126,7 +126,18 @@ function getNewAddr(){
 
 function listchannels(){
         $.get( "listchannels/", function( data ) {
-                $('#channelText').html(data);
+		var channels = JSON.parse(data);
+		var channel_html = "";
+		for (var key in channels) {
+			var channel = JSON.parse(JSON.stringify(channels[key]));
+			for (var subkey in channel) {
+				if (channel.hasOwnProperty(subkey)) {
+        				channel_html += subkey + ": " + JSON.stringify(channel[subkey]) + "<br />";
+    				}
+			}
+			channel_html += "<br />";
+		}
+		$('#channelText').html(channel_html);
                 console.log( "LN list channels: " + data );
         });
 }

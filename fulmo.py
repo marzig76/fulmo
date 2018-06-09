@@ -26,11 +26,11 @@ def getinfo():
 @app.route("/listfunds/")
 def listfunds():
 	balance = 0;
-        funds = ln.listfunds()
+	funds = ln.listfunds()
 	for item in funds['outputs']:
 		balance = balance + item["value"]
 	
-        return str(balance)
+	return str(balance)
 
 @app.route("/invoice/")
 def invoice():
@@ -46,12 +46,12 @@ def invoice():
 
 @app.route("/help/")
 def help():
-        help = ln.help()
-        return prepare(help)
+	help = ln.help()
+	return prepare(help)
 
 @app.route("/listchannels/")
 def listchannels():
-        channels = ln.listpeers()
+	channels = ln.listpeers()
 	data = {}
 
 	# loop through all peers
@@ -69,7 +69,7 @@ def listchannels():
 				data[i]["state"] = val["channels"][0]["state"]
 	
 	json_data = json.dumps(data)
-        return json_data
+	return json_data
 
 @app.route("/connect/")
 def connect():
@@ -92,11 +92,10 @@ def fundChannel(nodeID, satoshis):
 	return str(fundResult)
 
 def qr(data): 
-        img = qrcode.make(data)
-        filename = "static/qrcodes/" + data  + ".png"
-        img.save(filename)
-        return str("<br /><img src='/" + filename + "'height='200' width='200'/>")
-        
+	img = qrcode.make(data)
+	filename = "static/qrcodes/" + data  + ".png"
+	img.save(filename)
+	return str("<br /><img src='/" + filename + "'height='200' width='200'/>")
 
 def prepare(data):
 	data_string = ""

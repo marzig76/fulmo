@@ -45,33 +45,24 @@ $(document).ready(function() {
 
         // show channels and peers
         $('#showchannelspeers').click(function() {
-                $('#getinfo').hide();
+                hideAll();
                 $('#channels').show();
-                $('#funding').hide();
-                $('#invoices').hide();
 		$('#buttons').show();
 		$('#connections').show();
 	});
 
         // show payments and invoices
         $('#showpayments').click(function() {
-                $('#getinfo').hide();
-                $('#channels').hide();
+                hideAll();
                 $('#funding').show();
                 $('#invoices').show();
 		$('#buttons').show();
-		$('#connections').hide();
 	});
 
         // show all
         $('#showall').click(function() {
-                $('#getinfo').show();
-                $('#channels').show();
-                $('#funding').show();
-                $('#invoices').show();
-		$('#buttons').show();
-		$('#connections').show();
-        });
+        	showAll();
+	});
 	// ------------------------------
 
 	// refresh statuses
@@ -79,12 +70,26 @@ $(document).ready(function() {
 });
 
 function defaultView(){
+	hideAll();
 	$('#getinfo').show();
-        $('#channels').hide();
-        $('#funding').hide();
-        $('#invoices').hide();
+}
+
+function hideAll(){
+	$('#getinfo').hide();
+	$('#channels').hide();
+	$('#funding').hide();
+	$('#invoices').hide();
 	$('#buttons').hide();
 	$('#connections').hide();
+}
+
+function showAll(){
+	$('#getinfo').show();
+	$('#channels').show();
+	$('#funding').show();
+	$('#invoices').show();
+	$('#buttons').show();
+	$('#connections').show();
 }
 
 function refresh(){

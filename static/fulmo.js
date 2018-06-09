@@ -134,10 +134,12 @@ function listchannels(){
 		var channels = JSON.parse(data);
 		var channel_html = "";
 		for (var key in channels) {
+			channel_html += "<div style='border:1px solid black;'>";
 			var channel = JSON.parse(JSON.stringify(channels[key]));
 			for (var subkey in channel) {
 				channel_html += subkey + ": " + channel[subkey] + "<br />";
 			}
+			channel_html += "</div>"
 			channel_html += "<br />";
 		}
 		$('#channelText').html(channel_html);

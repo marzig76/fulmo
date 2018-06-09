@@ -136,9 +136,7 @@ function listchannels(){
 		for (var key in channels) {
 			var channel = JSON.parse(JSON.stringify(channels[key]));
 			for (var subkey in channel) {
-				if (channel.hasOwnProperty(subkey)) {
-        				channel_html += subkey + ": " + JSON.stringify(channel[subkey]) + "<br />";
-    				}
+				channel_html += subkey + ": " + channel[subkey] + "<br />";
 			}
 			channel_html += "<br />";
 		}

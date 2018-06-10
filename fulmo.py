@@ -108,7 +108,7 @@ def fundChannel(nodeID, satoshis):
 
 def qr(data): 
 	img = qrcode.make(data)
-	filename = "static/qrcodes/" + data  + ".png"
+	filename = "static/qrcodes/" + data + ".png"
 	img.save(filename)
 	return str("<br /><img src='/" + filename + "'height='200' width='200'/>")
 
@@ -123,4 +123,4 @@ def prepare(data):
 	return data_string
 
 if __name__ == "__main__":
-    app.run(host="192.168.0.100",ssl_context='adhoc')
+	app.run(host="192.168.0.100",ssl_context='adhoc')

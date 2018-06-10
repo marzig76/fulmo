@@ -24,6 +24,11 @@ $(document).ready(function() {
                 getNewAddr();
         });
 	
+	// make payment button event
+	$('#paybolt11').click(function() {
+                paybolt11();
+        });
+
 	// clear button event
         $('#clear').click(function() {
                 clear();
@@ -56,6 +61,7 @@ $(document).ready(function() {
                 hideAll();
                 $('#funding').show();
                 $('#invoices').show();
+		$('#payment').show();
 		$('#buttons').show();
 	});
 
@@ -75,12 +81,9 @@ function defaultView(){
 }
 
 function hideAll(){
-	$('#getinfo').hide();
-	$('#channels').hide();
-	$('#funding').hide();
-	$('#invoices').hide();
-	$('#buttons').hide();
-	$('#connections').hide();
+	// hide all divs, but still show the navigation tabs
+	$('div').hide();
+	$('#tabs').show();
 }
 
 function showAll(){
@@ -162,10 +165,21 @@ function createInvoice(){
         });
 }
 
+function paybolt11(){
+	var bolt11 = $('#bolt11').val();
+	var paymentURL = "pay/?bolt11=" + bolt11;
+
+	$.get( paymentURL, function( data ) {
+                $('#paymentText').html(data);
+                console.log( "Lightning Payment: " + data );
+        });
+}
+
 function clear(){
 	$('#invoiceText').html("");
 	$('#fundingText').html("");
 	$('#connectionText').html("");
+	$('#paymentText').html("");
 }
 
 function help(){

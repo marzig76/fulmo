@@ -45,6 +45,17 @@ def invoice():
 	else:
 		return bolt11
 
+@app.route("/pay/")
+def pay():
+	bolt11 = request.args.get("bolt11")
+	
+	try:
+		result = ln.pay(bolt11)
+	except ValueError, e:
+		result = e
+
+	return str(result)
+
 @app.route("/help/")
 def help():
 	help = ln.help()

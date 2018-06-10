@@ -3,6 +3,7 @@ from flask import Flask, request, render_template
 import random
 import qrcode
 import json
+import re
 app = Flask(__name__)
 
 # Connect to local LN node
@@ -75,6 +76,9 @@ def listchannels():
 def connect():
 	satoshis = request.args.get("satoshis")
 	connection_string = request.args.get("c")
+	if re.search(r".*@[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*:[0-9]*", connection_string) is None:
+		return "Node must be in this format: NodeID@IPaddress:Port"
+	
 	nodeID = connection_string[:connection_string.find("@")]
 	ip = connection_string[connection_string.find("@")+1:connection_string.find(":")]
 	port = connection_string[connection_string.find(":")+1:]

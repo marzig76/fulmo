@@ -123,6 +123,7 @@ function connect(){
 	
         $.get( connectURL, function( data ) {
                 $('#connectionText').html(data);
+		listchannels();
 		// console.log( "Connection: " + data );
         });
 }
@@ -140,13 +141,20 @@ function getNewAddr(){
 
 function listchannels(){
         $.get( "listchannels/", function( data ) {
-		var channels = JSON.parse(data);
+		var peers = JSON.parse(data);
 		var channel_html = "";
-		for (var key in channels) {
+		for (var key in peers) {
 			channel_html += "<div style='border:1px solid black;'>";
-			var channel = JSON.parse(JSON.stringify(channels[key]));
-			for (var subkey in channel) {
-				channel_html += subkey + ": " + channel[subkey] + "<br />";
+			var channels = JSON.parse(JSON.stringify(peers[key]));
+			for (var subkey in channels) {
+				if ($.isNumeric(subkey)){
+					var channel = JSON.parse(JSON.stringify(channels[subkey]));
+					for (var channel_key in channel) {
+						channel_html += channel_key + ": " + channel[channel_key] + "<br />";
+					}
+				}else {
+					channel_html += subkey + ": " + channels[subkey] + "<br />";
+				}
 			}
 			channel_html += "</div>"
 			channel_html += "<br />";

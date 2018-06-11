@@ -63,23 +63,51 @@ def help():
 
 @app.route("/listchannels/")
 def listchannels():
-	channels = ln.listpeers()
+	peers = ln.listpeers()
 	data = {}
+	
+	# Relevant peers are ones that we have an open channel with, 
+	# or we're still negotiation a channel with.
+	# If our only relationship to a peer is that we have a closed channel, 
+	# then we don't care about him for now.
+	relevant_peer = {}
 
 	# loop through all peers
-	# get either the connection state, or channel state
-	# only looking at the first channel for each peer (where [0] is explicitly referenced)
-	# need to implement another loop in case there are multiple
-	for key,value in channels.iteritems():
+	# get either the peer state, or channel state (if it exists)
+	for key, value in peers.iteritems():
 		for i, val in enumerate(value):
 			data[i] = {}
-			data[i]["alias"] = val["alias"]
-			data[i]["id"] = val["id"]
-			try:
+			relevant_peer[i] = False
+
+			if "alias" in val:
+				data[i]["alias"] = val["alias"]
+
+			data[i]["peer_id"] = val["id"]
+			
+			# If there is a state key in the peer dict, 
+			# that means there is no channel yet, so just use that.
+			# Otherwise, loop through the channels to get their states
+			if "state" in val:
+				# We have a current state with this peer, so he is relevantt
+				relevant_peer[i] = True
 				data[i]["state"] = val["state"]
-			except:
-				data[i]["state"] = val["channels"][0]["state"]
-	
+			else:
+				for j, channels in enumerate(val["channels"]):
+					data[i][j] = {}
+
+					# ONCHAIN means the channel is closed
+					# So if the channel state is not "ONCHAIN",
+					# then this peer is relevant.
+					if channels["state"] != "ONCHAIN":
+						relevant_peer[i] = True
+						data[i][j]["channel_id"] = channels["channel_id"]
+						data[i][j]["balance"] = channels["msatoshi_total"]
+						data[i][j]["state"] = channels["state"]
+			
+			# If the peer is irrelevant, just remove him from the list
+			if not relevant_peer[i]:
+				del data[i]
+				
 	json_data = json.dumps(data)
 	return json_data
 

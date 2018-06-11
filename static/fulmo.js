@@ -13,7 +13,7 @@ $(document).ready(function() {
 		connect();
 		listchannels();	
         });
-
+	
 	// create invoice button event
 	$('#createInvoice').click(function() {
 		createInvoice();
@@ -128,6 +128,13 @@ function connect(){
         });
 }
 
+function closeChannel(channel_id){
+	var closeURL = "close/?channel_id=" + channel_id;
+	$.get( closeURL, function( data ) {
+		$('#connectionText').html(data);
+	});
+}
+
 function getNewAddr(){
 	var addrURL = "newaddr/";
         if ($('#bech32').is(':checked')){
@@ -150,6 +157,9 @@ function listchannels(){
 				if ($.isNumeric(subkey)){
 					var channel = JSON.parse(JSON.stringify(channels[subkey]));
 					for (var channel_key in channel) {
+						if (channel_key == "channel_id"){
+							channel_html += "<input id='4500" + channel[channel_key] + "' type='button' class='close_channel' value='Close this Channel'><br />";
+						}
 						channel_html += channel_key + ": " + channel[channel_key] + "<br />";
 					}
 				}else {
@@ -161,7 +171,13 @@ function listchannels(){
 		}
 		$('#channelText').html(channel_html);
                 console.log( "LN list channels: " + data );
-        });
+        
+		// close channel button event
+		// this is seemingly hidden down here because the listener needs to be defined after the buttons are created
+        	$('.close_channel').click(function() {
+        		closeChannel(this.id);
+		});
+	});
 }
 
 function createInvoice(){

@@ -130,6 +130,17 @@ def connect():
 		
 	return str(result)
 
+@app.route("/close/")
+def close():
+	channel_id = request.args.get("channel_id")
+	
+	try:
+		result = ln.close(channel_id)
+	except ValueError, e:
+		result = e
+
+	return str(result)
+
 def fundChannel(nodeID, satoshis):
 	fundResult = ln.fundchannel(nodeID, satoshis)
 	return str(fundResult)

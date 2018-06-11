@@ -82,8 +82,13 @@ function defaultView(){
 
 function hideAll(){
 	// hide all divs, but still show the navigation tabs
-	$('div').hide();
-	$('#tabs').show();
+	$('#getinfo').hide();
+        $('#channels').hide();
+        $('#funding').hide();
+        $('#invoices').hide();
+        $('#buttons').hide();
+        $('#connections').hide();
+        $('#payment').hide();
 }
 
 function showAll(){
@@ -93,6 +98,7 @@ function showAll(){
 	$('#invoices').show();
 	$('#buttons').show();
 	$('#connections').show();
+	$('#payment').show();
 }
 
 function refresh(){

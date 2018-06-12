@@ -109,8 +109,12 @@ function refresh(){
 
 function getinfo(){
         $.get( "getinfo/", function( data ) {
-                $('#getinfoText').html(data);
-		console.log( "LN node stats: " + data );
+ 		var getinfo = JSON.parse(data);
+		var getinfoHTML = "";               
+		for (var key in getinfo){
+			getinfoHTML += key + ": " + getinfo[key] + "<br />";
+		}
+		$('#getinfoText').html(getinfoHTML);
         });	
 }
 

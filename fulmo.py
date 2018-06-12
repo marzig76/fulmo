@@ -21,8 +21,17 @@ def newaddr():
 
 @app.route("/getinfo/")
 def getinfo():
-	info = ln.getinfo()
-	return prepare(info) + "On-chain Balance: " + str(listfunds()) + " Satoshis"
+	info = {}
+	getinfo = ln.getinfo()
+	info["Network"] = getinfo["network"]
+	info["Port"] = getinfo["port"]
+	info["Version"] = getinfo["version"]
+	info["Block Height"] = getinfo["blockheight"]
+	info["Lightning Node ID"] = getinfo["id"]
+	info["On-Chain Balance"] = str(listfunds()) + " Satoshis"
+	
+	json_data = json.dumps(info)
+        return json_data	
 
 @app.route("/listfunds/")
 def listfunds():

@@ -204,7 +204,7 @@ function paybolt11(){
 	var paymentURL = "pay/?bolt11=" + bolt11;
 
 	$.get( paymentURL, function( data ) {
-                $('#paymentText').html(data);
+                $('#paymentText').html("<br />" + data + "<br />");
                 console.log( "Lightning Payment: " + data );
         });
 }

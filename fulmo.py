@@ -59,7 +59,12 @@ def pay():
 	bolt11 = request.args.get("bolt11")
 	
 	try:
-		result = ln.pay(bolt11)
+		payment = ln.pay(bolt11)
+		if payment["status"] == "complete":
+			result = "Payment Sent!"
+		else:
+			result = str(payment)
+
 	except ValueError, e:
 		result = e
 
@@ -74,7 +79,7 @@ def help():
 def listchannels():
 	peers = ln.listpeers()
 	data = {}
-	
+		
 	# Relevant peers are ones that we have an open channel with, 
 	# or we're still negotiation a channel with.
 	# If our only relationship to a peer is that we have a closed channel, 
@@ -110,7 +115,7 @@ def listchannels():
 					if channels["state"] != "ONCHAIN":
 						relevant_peer[i] = True
 						data[i][j]["channel_id"] = channels["channel_id"]
-						data[i][j]["balance"] = channels["msatoshi_total"]
+						data[i][j]["balance"] = channels["msatoshi_to_us"]
 						data[i][j]["state"] = channels["state"]
 			
 			# If the peer is irrelevant, just remove him from the list

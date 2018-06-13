@@ -29,7 +29,7 @@ def getinfo():
 	info["Version"] = getinfo["version"]
 	info["Block Height"] = getinfo["blockheight"]
 	info["Lightning Node ID"] = getinfo["id"]
-	info["On-Chain Balance"] = str(listfunds() * 0.00000001) + " BTC"
+	info["On-Chain Balance"] = str(int(listfunds()) * 0.00000001) + " BTC"
 	
 	json_data = json.dumps(info)
         return json_data	
@@ -41,7 +41,7 @@ def listfunds():
 	for item in funds['outputs']:
 		balance = balance + item["value"]
 	
-	return balance
+	return str(balance)
 
 @app.route("/invoice/")
 def invoice():

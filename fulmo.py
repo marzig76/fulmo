@@ -4,6 +4,7 @@ import random
 import qrcode
 import json
 import re
+import ast
 app = Flask(__name__)
 
 # Connect to local LN node
@@ -66,9 +67,27 @@ def pay():
 			result = str(payment)
 
 	except ValueError, e:
-		result = e
+		error = str(e)
+		msg_str = error[error.find("{"):error.find("}")+1]
+		msg_dict = ast.literal_eval(msg_str)
+		result = "Error: " + msg_dict["message"]
 
-	return str(result)
+	return result
+
+@app.route("/decode/")
+def decode():
+        bolt11 = request.args.get("bolt11")
+
+        try:
+                decode = ln.decodepay(bolt11)
+                return json.dumps(decode)
+
+        except ValueError, e:
+                error = str(e)
+                msg_str = error[error.find("{"):error.find("}")+1]
+                msg_dict = ast.literal_eval(msg_str)
+
+        return json.dumps(msg_dict)
 
 @app.route("/help/")
 def help():

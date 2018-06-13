@@ -24,9 +24,14 @@ $(document).ready(function() {
                 getNewAddr();
         });
 	
+	// decode payment button event
+        $('#decodebolt11').click(function() {
+                bolt11("decode");
+        });
+	
 	// make payment button event
 	$('#paybolt11').click(function() {
-                paybolt11();
+                bolt11("pay");
         });
 
 	// clear button event
@@ -199,13 +204,22 @@ function createInvoice(){
         });
 }
 
-function paybolt11(){
+function bolt11(action){
 	var bolt11 = $('#bolt11').val();
-	var paymentURL = "pay/?bolt11=" + bolt11;
+	var url = "";
+	if (action == "pay"){
+		url = "pay/";
+	}else if(action = "decode"){
+		url = "decode/";
+	}else {
+		return false;
+	}
+	
+	url += "?bolt11=" + bolt11;
 
-	$.get( paymentURL, function( data ) {
+	$.get( url, function( data ) {
                 $('#paymentText').html("<br />" + data + "<br />");
-                console.log( "Lightning Payment: " + data );
+                console.log( "Bolt11 " + action + " : " + data );
         });
 }
 

@@ -218,7 +218,24 @@ function bolt11(action){
 	url += "?bolt11=" + bolt11;
 
 	$.get( url, function( data ) {
-                $('#paymentText').html("<br />" + data + "<br />");
+		jsonData = JSON.parse(data);
+		response = "<br />";
+		
+		if (action == "pay"){
+			response += "Amount: " + jsonData.msatoshi + " msatoshi<br />";
+                        response += "Status: " + jsonData.status + "<br />";
+                        response += "Recipient: " + jsonData.destination + "<br />";
+			response += "Payment Hash: " + jsonData.payment_hash;	
+		}else if(action = "decode"){
+			response += "Amount: " + jsonData.msatoshi + " msatoshi<br />";
+                	response += "Description: " + jsonData.description + "<br />";
+                	response += "Recipient: " + jsonData.payee;
+		}else {
+			response += "Error: Bad Action";
+		}
+
+		response += "<br />";
+                $('#paymentText').html(response);
                 console.log( "Bolt11 " + action + " : " + data );
         });
 }

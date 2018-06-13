@@ -206,11 +206,11 @@ function createInvoice(){
 
 function bolt11(action){
 	var bolt11 = $('#bolt11').val();
-	var url = "";
+	var url = "bolt11/";
 	if (action == "pay"){
-		url = "pay/";
+		url += "pay";
 	}else if(action = "decode"){
-		url = "decode/";
+		url += "decode";
 	}else {
 		return false;
 	}

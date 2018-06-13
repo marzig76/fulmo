@@ -55,39 +55,24 @@ def invoice():
 	else:
 		return bolt11
 
-@app.route("/pay/")
-def pay():
+@app.route("/bolt11/<action>")
+def bolt11(action):
 	bolt11 = request.args.get("bolt11")
 	
 	try:
-		payment = ln.pay(bolt11)
-		if payment["status"] == "complete":
-			result = "Payment Sent!"
+		if action == "pay":
+			result = ln.pay(bolt11)
+		elif action == "decode":
+			result = ln.decodepay(bolt11)
 		else:
-			result = str(payment)
+			result = {"error": "bad action"}	
 
 	except ValueError, e:
 		error = str(e)
 		msg_str = error[error.find("{"):error.find("}")+1]
-		msg_dict = ast.literal_eval(msg_str)
-		result = "Error: " + msg_dict["message"]
+		result = ast.literal_eval(msg_str)
 
-	return result
-
-@app.route("/decode/")
-def decode():
-        bolt11 = request.args.get("bolt11")
-
-        try:
-                decode = ln.decodepay(bolt11)
-                return json.dumps(decode)
-
-        except ValueError, e:
-                error = str(e)
-                msg_str = error[error.find("{"):error.find("}")+1]
-                msg_dict = ast.literal_eval(msg_str)
-
-        return json.dumps(msg_dict)
+	return json.dumps(result)
 
 @app.route("/help/")
 def help():

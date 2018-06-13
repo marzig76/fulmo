@@ -11,7 +11,8 @@ $(document).ready(function() {
 	// connect button event
 	$('#connect').click(function() {
 		connect();
-		listchannels();	
+		listchannels();
+		getbalances();
         });
 	
 	// create invoice button event
@@ -64,7 +65,8 @@ $(document).ready(function() {
         // show payments and invoices
         $('#showpayments').click(function() {
                 hideAll();
-                $('#funding').show();
+                $('#balances').show();
+		$('#funding').show();
                 $('#invoices').show();
 		$('#payment').show();
 		$('#buttons').show();
@@ -94,6 +96,7 @@ function hideAll(){
         $('#buttons').hide();
         $('#connections').hide();
         $('#payment').hide();
+	$('#balances').hide();
 }
 
 function showAll(){
@@ -104,12 +107,14 @@ function showAll(){
 	$('#buttons').show();
 	$('#connections').show();
 	$('#payment').show();
+	$('#balances').show();
 }
 
 function refresh(){
 	console.log("refresh");	
 	getinfo();
 	listchannels();
+	getbalances();
 }
 
 function getinfo(){
@@ -142,6 +147,8 @@ function closeChannel(channel_id){
 	$.get( closeURL, function( data ) {
 		$('#connectionText').html(data);
 	});
+	
+	getbalances();
 }
 
 function getNewAddr(){
@@ -231,7 +238,10 @@ function bolt11(action){
 			response += "Amount: " + jsonData.msatoshi + " msatoshi<br />";
                         response += "Status: " + jsonData.status + "<br />";
                         response += "Recipient: " + jsonData.destination + "<br />";
-			response += "Payment Hash: " + jsonData.payment_hash;	
+			response += "Payment Hash: " + jsonData.payment_hash;
+			
+			// since a payment was just made, refresh the wallet balances
+			getbalances();
 		}else if(action = "decode"){
 			response += "Amount: " + jsonData.msatoshi + " msatoshi<br />";
                 	response += "Description: " + jsonData.description + "<br />";
@@ -244,6 +254,19 @@ function bolt11(action){
                 $('#paymentText').html(response);
                 console.log( "Bolt11 " + action + " : " + data );
         });
+}
+
+function getbalances(){
+	$.get( "listfunds/", function( data ) {
+		console.log("onchain balance: " + data);
+		$('#onchainbalance').html("<br />On-chain Balance: " + data * 0.00000001 + " BTC<br />");
+	});
+	$.get( "listchannels/", function( data ) {
+		var channels = JSON.parse(data);
+		var balance = (channels.balance * 0.00000000001).toFixed(8)
+		console.log("lightning balance: " + balance);
+		$('#lightningbalance').html("Lightning Balance: " + balance + " BTC<br />");
+	});
 }
 
 function clear(){

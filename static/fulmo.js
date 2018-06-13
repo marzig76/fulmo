@@ -158,9 +158,15 @@ function getNewAddr(){
 function listchannels(){
         $.get( "listchannels/", function( data ) {
 		var peers = JSON.parse(data);
+		console.log(peers);
 		var channel_html = "";
 		for (var key in peers) {
-			channel_html += "<div style='border:1px solid black;'>";
+			
+			if (key == "balance"){
+				channel_html += "Lightning Channels - Total Balance: " + (peers[key] * 0.00000000001).toFixed(8) + " BTC";
+			}else {
+				channel_html += "<div style='border:1px solid black;'>";
+			}
 			var channels = JSON.parse(JSON.stringify(peers[key]));
 			for (var subkey in channels) {
 				if ($.isNumeric(subkey)){

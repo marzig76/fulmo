@@ -83,6 +83,7 @@ def help():
 def listchannels():
 	peers = ln.listpeers()
 	data = {}
+	total_balance = 0
 		
 	# Relevant peers are ones that we have an open channel with, 
 	# or we're still negotiation a channel with.
@@ -121,10 +122,14 @@ def listchannels():
 						data[i][j]["channel_id"] = channels["channel_id"]
 						data[i][j]["balance"] = channels["msatoshi_to_us"]
 						data[i][j]["state"] = channels["state"]
+						total_balance = total_balance + channels["msatoshi_to_us"]
 			
 			# If the peer is irrelevant, just remove him from the list
 			if not relevant_peer[i]:
 				del data[i]
+
+			if total_balance > 0:
+				data["balance"] = total_balance
 				
 	json_data = json.dumps(data)
 	return json_data

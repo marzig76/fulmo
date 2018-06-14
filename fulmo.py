@@ -76,8 +76,8 @@ def bolt11(action):
 
 @app.route("/help/")
 def help():
-	help = ln.help()
-	return prepare(help)
+	help_result = ln.help()
+	return json.dumps(help_result)
 
 @app.route("/listchannels/")
 def list_channels():
@@ -173,16 +173,6 @@ def qr(data):
 	filename = "static/qrcodes/" + data + ".png"
 	img.save(filename)
 	return str("<br /><img src='/" + filename + "'height='200' width='200'/>")
-
-def prepare(data):
-	data_string = ""
-	for key, value in data.iteritems():
-		if isinstance(value, dict):	
-			data_string = prepare(value)
-		else:
-			data_string = data_string + key + ": " + str(value) + "<br />"
-
-	return data_string
 
 if __name__ == "__main__":
 	app.run(host="192.168.0.100",ssl_context='adhoc')

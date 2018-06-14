@@ -145,7 +145,7 @@ def connect():
 
 	try:
 		connect = ln.connect(node_id, ip, port)
-		result = fundChannel(connect["id"], satoshis)
+		result = fund_channel(connect["id"], satoshis)
 	except ValueError, e:
 		result = parse_exception(e)
 

@@ -57,19 +57,24 @@ $(document).ready(function() {
         // show channels and peers
         $('#showchannelspeers').click(function() {
                 hideAll();
-                $('#channels').show();
-		$('#buttons').show();
-		$('#connections').show();
+                $('.channels').show();
+		$('.buttons').show();
 	});
 
-        // show payments and invoices
+        // show on-chain BTC payments and balances
+        $('#showwallet').click(function() {
+                hideAll();
+                $('.balances').show();
+                $('.onchainwallet').show();
+                $('.buttons').show();
+        });
+
+	// show LN payments, balances, and invoices
         $('#showpayments').click(function() {
                 hideAll();
-                $('#balances').show();
-		$('#funding').show();
-                $('#invoices').show();
-		$('#payment').show();
-		$('#buttons').show();
+                $('.balances').show();
+		$('.lightningwallet').show();
+		$('.buttons').show();
 	});
 
         // show all
@@ -84,30 +89,26 @@ $(document).ready(function() {
 
 function defaultView(){
 	hideAll();
-	$('#getinfo').show();
+	$('.info').show();
 }
 
 function hideAll(){
 	// hide all divs, but still show the navigation tabs
-	$('#getinfo').hide();
-        $('#channels').hide();
-        $('#funding').hide();
-        $('#invoices').hide();
-        $('#buttons').hide();
-        $('#connections').hide();
-        $('#payment').hide();
-	$('#balances').hide();
+	$('.info').hide();
+        $('.channels').hide();
+        $('.balances').hide();
+        $('.onchainwallet').hide();
+        $('.lightningwallet').hide();
+        $('.buttons').hide();
 }
 
 function showAll(){
-	$('#getinfo').show();
-	$('#channels').show();
-	$('#funding').show();
-	$('#invoices').show();
-	$('#buttons').show();
-	$('#connections').show();
-	$('#payment').show();
-	$('#balances').show();
+	$('.info').show();
+	$('.channels').show();
+	$('.balances').show();
+	$('.onchainwallet').show();
+	$('.lightningwallet').show();
+	$('.buttons').show();
 }
 
 function refresh(){

@@ -10,14 +10,15 @@
 	<div id="tabs">
 		<input id="shownodeinfo" type="button" value="Node Info" />
 		<input id="showchannelspeers" type="button" value="Channels and Peers" />
-		<input id="showpayments" type="button" value="Payments" />
+		<input id="showwallet" type="button" value="On-chain Wallet" />
+		<input id="showpayments" type="button" value="Lightning Wallet" />
 		<input id="showall" type="button" value="Show All" />
 	</div>
-	<div id="getinfo">
+	<div id="getinfo" class="info">
 		<span id="getinfoTitle">LN Node Info:<br /><span>
 		<span id="getinfoText"><span>
 	</div>
-	<div id="channels">
+	<div id="channels" class="channels">
 		<span id="channelTitle">
 			Channels:<br />
 			<a href="https://github.com/ElementsProject/lightning#different-states">
@@ -26,7 +27,7 @@
 		</span>
 		<span id="channelText"></span><br />
 	</div>
-        <div id="connections">
+        <div id="connections" class="channels">
                 <span id="connectionTitle">
 			Open a Channel:<br />
 			<a href='https://lnmainnet.gaben.win/?100='>Find a node to connect to</a>
@@ -37,18 +38,29 @@
 		<input id="connectionAmount" type="number" value="100000">Satoshis<br />
                 <input id="connect" type="button" value="Connect">
 	</div>
-	<div id="balances">
+	<div id="balances" class="balances">
 		<span id="onchainbalance"></span>
 		<span id="lightningbalance"></span>
 	</div>
-	<div id="funding">
+	<div id="funding" class="onchainwallet">
                 <span id="fundingTitle">Funding:<br /></span>
                 <span id="fundingText"></span><br />
                 Bech32?
                 <input id="bech32" type="checkbox" checked="checked"><br />
                 <input id="fundingButton" type="button" value="Generate Address"/>
         </div>
-	<div id="invoices">
+	<div id="withdraw" class="onchainwallet">
+                <span id="withdrawTitle">Withdraw Funds:<br /></span>
+                <span id="withdrawText"></span><br />
+		Recipient:
+                <input id="withdrawAddress" type="text" value=""/><br />
+		Amount to send:
+		<input id="withdrawAmount" type="text" value=""/><br />
+		Send all on-chain funds?
+		<input id="withdrawAll" type="checkbox"/><br />
+                <input id="withdrawButton" type="button" value="Send"/>
+        </div>
+	<div id="invoices" class="lightningwallet">
 		<span id="invoiceTitle">Invoices:<br /></span>
 		<span id="invoiceText"></span><br />
 		MilliSatoshis:
@@ -59,14 +71,14 @@
 		<input id="invoiceQR" type="checkbox"/><br />
 		<input id="createInvoice" type="button" value="Create Invoice" />
 	</div>
-	<div id="payment">
+	<div id="payment" class="lightningwallet">
 		<span id="paymentTitle">Make a Lightning Payment:<br /></span>
                 <span id="paymentText"></span><br />
 		<textarea id="bolt11"></textarea><br />
 		<input id="decodebolt11" type="button" value="Decode Payment" />
 		<input id="paybolt11" type="button" value="Send Payment" />
 	</div>
-	<div id="buttons">
+	<div id="buttons" class="buttons">
 		<input id="clear" type="button" value="Clear" />
 		<div id="help" title="Press F12 and go to the JavaScript console for Help">
 			<input id="help" type="button" value="Help" />

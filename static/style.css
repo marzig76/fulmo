@@ -27,9 +27,15 @@
 	overflow-wrap: break-word;
 	margin: 10px;
 }
-#payment {
+#withdraw {
         width: 600px;
         border: 1px solid blue;
+        overflow-wrap: break-word;
+        margin: 10px;
+}
+#payment {
+        width: 600px;
+        border: 1px solid green;
         overflow-wrap: break-word;
         margin: 10px;
 }

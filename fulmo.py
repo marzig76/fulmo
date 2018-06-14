@@ -32,7 +32,7 @@ def get_info():
 	info["On-Chain Balance"] = str(int(list_funds()) * 0.00000001) + " BTC"
 	
 	json_data = json.dumps(info)
-        return json_data	
+	return json_data
 
 @app.route("/listfunds/")
 def list_funds():
@@ -65,7 +65,7 @@ def bolt11(action):
 		elif action == "decode":
 			result = ln.decodepay(bolt11)
 		else:
-			result = {"error": "bad action"}	
+			result = {"error": "bad action"}
 
 	except ValueError, e:
 		result = parse_exception(e)
@@ -82,7 +82,7 @@ def list_channels():
 	peers = ln.listpeers()
 	data = {}
 	total_balance = 0
-		
+	
 	# Relevant peers are ones that we have an open channel with, 
 	# or we're still negotiation a channel with.
 	# If our only relationship to a peer is that we have a closed channel, 
@@ -128,7 +128,7 @@ def list_channels():
 
 			if total_balance > 0:
 				data["balance"] = total_balance
-				
+	
 	json_data = json.dumps(data)
 	return json_data
 
@@ -149,7 +149,7 @@ def connect():
 	except ValueError, e:
 		result = parse_exception(e)
 
-        return json.dumps(result)
+	return json.dumps(result)
 
 @app.route("/close/")
 def close():
@@ -160,7 +160,7 @@ def close():
 	except ValueError, e:
 		result = parse_exception(e)
 
-        return json.dumps(result)
+	return json.dumps(result)
 
 def fund_channel(node_id, satoshis):
 	fund_result = ln.fundchannel(node_id, satoshis)

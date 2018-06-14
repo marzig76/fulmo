@@ -178,8 +178,19 @@ def parse_exception(e):
 	# This is a little hacky, but the goal here is to extract that dict
 	# and return it, so it can be used as an actual dict, not a string
 	error = str(e)
+
+	# Trying to extract the dict based on the presence of curly braces
 	msg_str = error[error.find("{"):error.find("}")+1]
-	return ast.literal_eval(msg_str)
+
+	# Sometimes a SyntaxError is thrown because there are
+	# multiple sets of braces, and the above code stops one brace short..
+	# If that happens, add an extra curly brace and call it a day
+	try:
+		final_dict = ast.literal_eval(msg_str)
+	except SyntaxError:
+		final_dict = ast.literal_eval(msg_str + "}")
+	
+	return final_dict
 
 if __name__ == "__main__":
 	app.run(host="192.168.0.100",ssl_context='adhoc')

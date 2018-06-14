@@ -173,6 +173,10 @@ def qr(data):
 	return str("<br /><img src='/" + filename + "'height='200' width='200'/>")
 
 def parse_exception(e):
+	# The ValueError that's thrown from the Lightning RPC library
+	# contains (among other text) a string representation of a dict object.
+	# This is a little hacky, but the goal here is to extract that dict
+	# and return it, so it can be used as an actual dict, not a string
 	error = str(e)
 	msg_str = error[error.find("{"):error.find("}")+1]
 	return ast.literal_eval(msg_str)

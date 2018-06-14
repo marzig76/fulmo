@@ -15,27 +15,27 @@ def fulmo():
 	return render_template('index.html')
 
 @app.route("/newaddr/")
-def newaddr():
+def new_address():
 	bech32 = request.args.get('type')
 	addr = ln.newaddr(bech32)
 	return addr['address'] + qr(addr['address'])
 
 @app.route("/getinfo/")
-def getinfo():
+def get_info():
 	info = {}
-	getinfo = ln.getinfo()
-	info["Network"] = getinfo["network"]
-	info["Port"] = getinfo["port"]
-	info["Version"] = getinfo["version"]
-	info["Block Height"] = getinfo["blockheight"]
-	info["Lightning Node ID"] = getinfo["id"]
-	info["On-Chain Balance"] = str(int(listfunds()) * 0.00000001) + " BTC"
+	get_info = ln.getinfo()
+	info["Network"] = get_info["network"]
+	info["Port"] = get_info["port"]
+	info["Version"] = get_info["version"]
+	info["Block Height"] = get_info["blockheight"]
+	info["Lightning Node ID"] = get_info["id"]
+	info["On-Chain Balance"] = str(int(list_funds()) * 0.00000001) + " BTC"
 	
 	json_data = json.dumps(info)
         return json_data	
 
 @app.route("/listfunds/")
-def listfunds():
+def list_funds():
 	balance = 0;
 	funds = ln.listfunds()
 	for item in funds['outputs']:
@@ -80,7 +80,7 @@ def help():
 	return prepare(help)
 
 @app.route("/listchannels/")
-def listchannels():
+def list_channels():
 	peers = ln.listpeers()
 	data = {}
 	total_balance = 0
@@ -141,12 +141,12 @@ def connect():
 	if re.search(r".*@[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*:[0-9]*", connection_string) is None:
 		return "Node must be in this format: NodeID@IPaddress:Port"
 	
-	nodeID = connection_string[:connection_string.find("@")]
+	node_id = connection_string[:connection_string.find("@")]
 	ip = connection_string[connection_string.find("@")+1:connection_string.find(":")]
 	port = connection_string[connection_string.find(":")+1:]
 
 	try:
-		connect = ln.connect(nodeID, ip, port)
+		connect = ln.connect(node_id, ip, port)
 		result = fundChannel(connect["id"], satoshis)
 	except ValueError, e:
 		result = e
@@ -164,9 +164,9 @@ def close():
 
 	return str(result)
 
-def fundChannel(nodeID, satoshis):
-	fundResult = ln.fundchannel(nodeID, satoshis)
-	return str(fundResult)
+def fundChannel(node_id, satoshis):
+	fund_result = ln.fundchannel(node_id, satoshis)
+	return str(fund_result)
 
 def qr(data): 
 	img = qrcode.make(data)

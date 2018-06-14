@@ -149,9 +149,11 @@ def connect():
 		connect = ln.connect(node_id, ip, port)
 		result = fundChannel(connect["id"], satoshis)
 	except ValueError, e:
-		result = e
-		
-	return str(result)
+		error = str(e)
+                msg_str = error[error.find("{"):error.find("}")+1]
+                result = ast.literal_eval(msg_str)
+
+        return json.dumps(result)
 
 @app.route("/close/")
 def close():
@@ -160,9 +162,11 @@ def close():
 	try:
 		result = ln.close(channel_id)
 	except ValueError, e:
-		result = e
+		error = str(e)
+                msg_str = error[error.find("{"):error.find("}")+1]
+                result = ast.literal_eval(msg_str)
 
-	return str(result)
+        return json.dumps(result)
 
 def fund_channel(node_id, satoshis):
 	fund_result = ln.fundchannel(node_id, satoshis)

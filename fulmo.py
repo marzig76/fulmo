@@ -68,9 +68,7 @@ def bolt11(action):
 			result = {"error": "bad action"}	
 
 	except ValueError, e:
-		error = str(e)
-		msg_str = error[error.find("{"):error.find("}")+1]
-		result = ast.literal_eval(msg_str)
+		result = parse_exception(e)
 
 	return json.dumps(result)
 
@@ -149,9 +147,7 @@ def connect():
 		connect = ln.connect(node_id, ip, port)
 		result = fundChannel(connect["id"], satoshis)
 	except ValueError, e:
-		error = str(e)
-                msg_str = error[error.find("{"):error.find("}")+1]
-                result = ast.literal_eval(msg_str)
+		result = parse_exception(e)
 
         return json.dumps(result)
 
@@ -162,9 +158,7 @@ def close():
 	try:
 		result = ln.close(channel_id)
 	except ValueError, e:
-		error = str(e)
-                msg_str = error[error.find("{"):error.find("}")+1]
-                result = ast.literal_eval(msg_str)
+		result = parse_exception(e)
 
         return json.dumps(result)
 
@@ -177,6 +171,11 @@ def qr(data):
 	filename = "static/qrcodes/" + data + ".png"
 	img.save(filename)
 	return str("<br /><img src='/" + filename + "'height='200' width='200'/>")
+
+def parse_exception(e):
+	error = str(e)
+	msg_str = error[error.find("{"):error.find("}")+1]
+	return ast.literal_eval(msg_str)
 
 if __name__ == "__main__":
 	app.run(host="192.168.0.100",ssl_context='adhoc')

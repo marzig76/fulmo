@@ -164,7 +164,7 @@ def close():
 
 	return str(result)
 
-def fundChannel(node_id, satoshis):
+def fund_channel(node_id, satoshis):
 	fund_result = ln.fundchannel(node_id, satoshis)
 	return str(fund_result)
 

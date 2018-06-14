@@ -233,8 +233,12 @@ function bolt11(action){
 	$.get( url, function( data ) {
 		jsonData = JSON.parse(data);
 		response = "<br />";
-		
-		if (action == "pay"){
+	
+		// if there's an error, the json data will contain a "message" key
+		// display that, otherwise display the actual response
+		if ("message" in jsonData){
+			response += "Error: " + jsonData.message + "<br />";
+		}else if (action == "pay"){
 			response += "Amount: " + jsonData.msatoshi + " msatoshi<br />";
                         response += "Status: " + jsonData.status + "<br />";
                         response += "Recipient: " + jsonData.destination + "<br />";

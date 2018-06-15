@@ -60,7 +60,12 @@ def invoice():
 	make_qr = request.args.get("qr")
 	satoshis = request.args.get("amount")
 	description = request.args.get("description")
-	invoice = ln.invoice(satoshis, "lbl{}".format(random.random()), description)
+
+	try:
+		invoice = ln.invoice(satoshis, "lbl{}".format(random.random()), description)
+	except ValueError, e:
+		return json.dumps(parse_exception(e))
+
 	bolt11 = str(invoice["bolt11"])
 	if make_qr is not None:
 		return bolt11 + qr("lightning:" + bolt11)

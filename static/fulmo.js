@@ -266,6 +266,13 @@ function createInvoice(){
 	}
 
 	$.get( invoiceURL, function( data ) {
+		// if there's an error, the json data will contain a "message" key
+                // display that, otherwise display the actual response
+                if ("message" in JSON.parse(data)){
+			jsonData = JSON.parse(data);
+			data = jsonData.message;
+		}
+		
 		$('#invoiceText').html(data);
 		console.log( "Invoice: " + data );
 	});

@@ -24,7 +24,25 @@ $(document).ready(function() {
         $('#fundingButton').click(function() {
                 getNewAddr();
         });
-	
+
+	// withdraw button event
+        $('#withdrawButton').click(function() {
+                withdraw();
+        });
+
+	// withdraw all checkbox event
+	// When this is checked, we want to disable the "withdrawAmount" input
+	$("#withdrawAll").click(function() {
+
+		if($(this).is(":checked")){
+			$("#withdrawAmount").val("Send All Funds");
+			$("#withdrawAmount").prop('disabled', true);
+		}else {
+			$("#withdrawAmount").val("");
+			$("#withdrawAmount").prop('disabled', false);
+		}
+	});
+
 	// decode payment button event
         $('#decodebolt11').click(function() {
                 bolt11("decode");
@@ -157,10 +175,45 @@ function getNewAddr(){
         if ($('#bech32').is(':checked')){
                 addrURL = addrURL + "?type=bech32";
         }
+
 	$.get( addrURL, function( data ) {
                 $('#fundingText').html(data);
                 console.log( "New Address: " + data );
         });
+}
+
+function withdraw(){
+	var addr = $('#withdrawAddress').val();
+	var amount = Number($('#withdrawAmount').val());
+
+	var withdrawURL = "withdraw/?addr=" + addr;
+
+	if ($('#withdrawAll').is(':checked')){
+		amount = "all";
+	}
+
+	var withdrawURL = "withdraw/?addr=" + addr + "&amount=" + amount;
+
+	$.get( withdrawURL, function( data ) {
+		var jsonData = JSON.parse(data);
+		var response = "<br />";
+
+		// if there's an error, the json data will contain a "message" key
+                // display that, otherwise display the actual response
+                if ("message" in jsonData){
+                        response += "Error: " + jsonData.message + "<br />";
+                }else {
+                        response += "Status:  Success<br />";
+                        response += "Txid: " + jsonData.txid + "<br />";
+
+                        // since funds were moved, refresh the wallet balances
+                        getbalances();
+                }
+
+		$('#withdrawText').html(response);
+	});
+
+	getbalances();
 }
 
 function listchannels(){

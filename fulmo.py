@@ -20,6 +20,18 @@ def new_address():
 	addr = ln.newaddr(bech32)
 	return addr['address'] + qr(addr['address'])
 
+@app.route("/withdraw/")
+def withdraw():
+	addr = request.args.get("addr")
+	amount = request.args.get("amount")
+
+	try:
+		result = ln.withdraw(addr, amount)
+	except ValueError, e:
+		result = parse_exception(e)
+
+	return json.dumps(result)
+
 @app.route("/getinfo/")
 def get_info():
 	info = {}

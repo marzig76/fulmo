@@ -277,7 +277,7 @@ function createInvoice(){
 			console.log(err.message);
 		}
 
-		$('#invoiceText').html(data);
+		$('#invoiceText').html("<br />" + data + "<br />");
 		console.log( "Invoice: " + data );
 	});
 }

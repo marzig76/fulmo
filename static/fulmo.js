@@ -1,20 +1,20 @@
 $(document).ready(function() {
 
 	console.log('Document Ready');
-	
+
 	defaultView();
 	refresh();
 
 	// ------------------------------
 	// button handlers
-	
+
 	// connect button event
 	$('#connect').click(function() {
 		connect();
 		listchannels();
 		getbalances();
 	});
-	
+
 	// create invoice button event
 	$('#createInvoice').click(function() {
 		createInvoice();
@@ -47,7 +47,7 @@ $(document).ready(function() {
 	$('#decodebolt11').click(function() {
 		bolt11("decode");
 	});
-	
+
 	// make payment button event
 	$('#paybolt11').click(function() {
 		bolt11("pay");
@@ -57,7 +57,7 @@ $(document).ready(function() {
 	$('#clear').click(function() {
 		clear();
 	});
-	
+
 	// help button event
 	$('#help').click(function() {
 		help();
@@ -153,7 +153,7 @@ function connect(){
 	var connectURL = connectEndpoint + "?c=" + node
 	var satoshis = Number($('#connectionAmount').val());
 	connectURL = connectURL + "&satoshis=" + satoshis;
-	
+
 	$.get( connectURL, function( data ) {
 		$('#connectionText').html(data);
 		listchannels();
@@ -166,7 +166,7 @@ function closeChannel(channel_id){
 	$.get( closeURL, function( data ) {
 		$('#connectionText').html(data);
 	});
-	
+
 	getbalances();
 }
 
@@ -222,7 +222,7 @@ function listchannels(){
 		console.log(peers);
 		var channel_html = "";
 		for (var key in peers) {
-			
+
 			if (key == "balance"){
 				channel_html += "Lightning Channels - Total Balance: " + (peers[key] * 0.00000000001).toFixed(8) + " BTC";
 			}else {
@@ -247,7 +247,7 @@ function listchannels(){
 		}
 		$('#channelText').html(channel_html);
 		console.log( "LN list channels: " + data );
-	
+
 		// close channel button event
 		// this is seemingly hidden down here because the listener needs to be defined after the buttons are created
 		$('.close_channel').click(function() {
@@ -280,7 +280,7 @@ function bolt11(action){
 	$.get( url, function( data ) {
 		jsonData = JSON.parse(data);
 		response = "<br />";
-	
+
 		// if there's an error, the json data will contain a "message" key
 		// display that, otherwise display the actual response
 		if ("message" in jsonData){
@@ -290,7 +290,7 @@ function bolt11(action){
 			response += "Status: " + jsonData.status + "<br />";
 			response += "Recipient: " + jsonData.destination + "<br />";
 			response += "Payment Hash: " + jsonData.payment_hash;
-			
+
 			// since a payment was just made, refresh the wallet balances
 			getbalances();
 		}else if(action = "decode"){

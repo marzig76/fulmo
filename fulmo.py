@@ -42,7 +42,7 @@ def get_info():
 	info["Block Height"] = get_info["blockheight"]
 	info["Lightning Node ID"] = get_info["id"]
 	info["On-Chain Balance"] = str(int(list_funds()) * 0.00000001) + " BTC"
-	
+
 	json_data = json.dumps(info)
 	return json_data
 
@@ -52,7 +52,7 @@ def list_funds():
 	funds = ln.listfunds()
 	for item in funds['outputs']:
 		balance = balance + item["value"]
-	
+
 	return str(balance)
 
 @app.route("/invoice/")
@@ -70,7 +70,7 @@ def invoice():
 @app.route("/bolt11/<action>")
 def bolt11(action):
 	bolt11 = request.args.get("bolt11")
-	
+
 	try:
 		if action == "pay":
 			result = ln.pay(bolt11)
@@ -94,7 +94,7 @@ def list_channels():
 	peers = ln.listpeers()
 	data = {}
 	total_balance = 0
-	
+
 	# Relevant peers are ones that we have an open channel with, 
 	# or we're still negotiation a channel with.
 	# If our only relationship to a peer is that we have a closed channel, 
@@ -112,7 +112,7 @@ def list_channels():
 				data[i]["alias"] = val["alias"]
 
 			data[i]["peer_id"] = val["id"]
-			
+
 			# If there is a state key in the peer dict, 
 			# that means there is no channel yet, so just use that.
 			# Otherwise, loop through the channels to get their states
@@ -133,14 +133,14 @@ def list_channels():
 						data[i][j]["balance"] = channels["msatoshi_to_us"]
 						data[i][j]["state"] = channels["state"]
 						total_balance = total_balance + channels["msatoshi_to_us"]
-			
+
 			# If the peer is irrelevant, just remove him from the list
 			if not relevant_peer[i]:
 				del data[i]
 
 			if total_balance > 0:
 				data["balance"] = total_balance
-	
+
 	json_data = json.dumps(data)
 	return json_data
 
@@ -150,7 +150,7 @@ def connect():
 	connection_string = request.args.get("c")
 	if re.search(r".*@[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*:[0-9]*", connection_string) is None:
 		return "Node must be in this format: NodeID@IPaddress:Port"
-	
+
 	node_id = connection_string[:connection_string.find("@")]
 	ip = connection_string[connection_string.find("@")+1:connection_string.find(":")]
 	port = connection_string[connection_string.find(":")+1:]
@@ -166,7 +166,7 @@ def connect():
 @app.route("/close/")
 def close():
 	channel_id = request.args.get("channel_id")
-	
+
 	try:
 		result = ln.close(channel_id)
 	except ValueError, e:
@@ -201,7 +201,7 @@ def parse_exception(e):
 		final_dict = ast.literal_eval(msg_str)
 	except SyntaxError:
 		final_dict = ast.literal_eval(msg_str + "}")
-	
+
 	return final_dict
 
 if __name__ == "__main__":

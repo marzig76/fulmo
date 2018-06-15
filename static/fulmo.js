@@ -13,7 +13,7 @@ $(document).ready(function() {
 		connect();
 		listchannels();
 		getbalances();
-        });
+	});
 	
 	// create invoice button event
 	$('#createInvoice').click(function() {
@@ -21,14 +21,14 @@ $(document).ready(function() {
 	});
 
 	// funding button event
-        $('#fundingButton').click(function() {
-                getNewAddr();
-        });
+	$('#fundingButton').click(function() {
+		getNewAddr();
+	});
 
 	// withdraw button event
-        $('#withdrawButton').click(function() {
-                withdraw();
-        });
+	$('#withdrawButton').click(function() {
+		withdraw();
+	});
 
 	// withdraw all checkbox event
 	// When this is checked, we want to disable the "withdrawAmount" input
@@ -44,60 +44,60 @@ $(document).ready(function() {
 	});
 
 	// decode payment button event
-        $('#decodebolt11').click(function() {
-                bolt11("decode");
-        });
+	$('#decodebolt11').click(function() {
+		bolt11("decode");
+	});
 	
 	// make payment button event
 	$('#paybolt11').click(function() {
-                bolt11("pay");
-        });
+		bolt11("pay");
+	});
 
 	// clear button event
-        $('#clear').click(function() {
-                clear();
-        });
+	$('#clear').click(function() {
+		clear();
+	});
 	
 	// help button event
-        $('#help').click(function() {
-                help();
-        });
+	$('#help').click(function() {
+		help();
+	});
 	// ------------------------------
 
 	// ------------------------------
 	// display/navigation
 
-        // show node info - default view
-        $('#shownodeinfo').click(function() {
+	// show node info - default view
+	$('#shownodeinfo').click(function() {
 		defaultView();
-        });
+	});
 
-        // show channels and peers
-        $('#showchannelspeers').click(function() {
-                hideAll();
-                $('.channels').show();
+	// show channels and peers
+	$('#showchannelspeers').click(function() {
+		hideAll();
+		$('.channels').show();
 		$('.buttons').show();
 	});
 
-        // show on-chain BTC payments and balances
-        $('#showwallet').click(function() {
-                hideAll();
-                $('.balances').show();
-                $('.onchainwallet').show();
-                $('.buttons').show();
-        });
+	// show on-chain BTC payments and balances
+	$('#showwallet').click(function() {
+		hideAll();
+		$('.balances').show();
+		$('.onchainwallet').show();
+		$('.buttons').show();
+	});
 
 	// show LN payments, balances, and invoices
-        $('#showpayments').click(function() {
-                hideAll();
-                $('.balances').show();
+	$('#showpayments').click(function() {
+		hideAll();
+		$('.balances').show();
 		$('.lightningwallet').show();
 		$('.buttons').show();
 	});
 
-        // show all
-        $('#showall').click(function() {
-        	showAll();
+	// show all
+	$('#showall').click(function() {
+		showAll();
 	});
 	// ------------------------------
 
@@ -113,11 +113,11 @@ function defaultView(){
 function hideAll(){
 	// hide all divs, but still show the navigation tabs
 	$('.info').hide();
-        $('.channels').hide();
-        $('.balances').hide();
-        $('.onchainwallet').hide();
-        $('.lightningwallet').hide();
-        $('.buttons').hide();
+	$('.channels').hide();
+	$('.balances').hide();
+	$('.onchainwallet').hide();
+	$('.lightningwallet').hide();
+	$('.buttons').hide();
 }
 
 function showAll(){
@@ -137,14 +137,14 @@ function refresh(){
 }
 
 function getinfo(){
-        $.get( "getinfo/", function( data ) {
- 		var getinfo = JSON.parse(data);
-		var getinfoHTML = "";               
+	$.get( "getinfo/", function( data ) {
+		var getinfo = JSON.parse(data);
+		var getinfoHTML = "";
 		for (var key in getinfo){
 			getinfoHTML += key + ": " + getinfo[key] + "<br />";
 		}
 		$('#getinfoText').html(getinfoHTML);
-        });	
+	});	
 }
 
 function connect(){
@@ -154,11 +154,11 @@ function connect(){
 	var satoshis = Number($('#connectionAmount').val());
 	connectURL = connectURL + "&satoshis=" + satoshis;
 	
-        $.get( connectURL, function( data ) {
-                $('#connectionText').html(data);
+	$.get( connectURL, function( data ) {
+		$('#connectionText').html(data);
 		listchannels();
 		// console.log( "Connection: " + data );
-        });
+	});
 }
 
 function closeChannel(channel_id){
@@ -172,14 +172,14 @@ function closeChannel(channel_id){
 
 function getNewAddr(){
 	var addrURL = "newaddr/";
-        if ($('#bech32').is(':checked')){
-                addrURL = addrURL + "?type=bech32";
-        }
+	if ($('#bech32').is(':checked')){
+		addrURL = addrURL + "?type=bech32";
+	}
 
 	$.get( addrURL, function( data ) {
-                $('#fundingText').html(data);
-                console.log( "New Address: " + data );
-        });
+		$('#fundingText').html(data);
+		console.log( "New Address: " + data );
+	});
 }
 
 function withdraw(){
@@ -199,16 +199,16 @@ function withdraw(){
 		var response = "<br />";
 
 		// if there's an error, the json data will contain a "message" key
-                // display that, otherwise display the actual response
-                if ("message" in jsonData){
-                        response += "Error: " + jsonData.message + "<br />";
-                }else {
-                        response += "Status:  Success<br />";
-                        response += "Txid: " + jsonData.txid + "<br />";
+		// display that, otherwise display the actual response
+		if ("message" in jsonData){
+			response += "Error: " + jsonData.message + "<br />";
+		}else {
+			response += "Status: Success<br />";
+			response += "Txid: " + jsonData.txid + "<br />";
 
-                        // since funds were moved, refresh the wallet balances
-                        getbalances();
-                }
+			// since funds were moved, refresh the wallet balances
+			getbalances();
+		}
 
 		$('#withdrawText').html(response);
 	});
@@ -217,7 +217,7 @@ function withdraw(){
 }
 
 function listchannels(){
-        $.get( "listchannels/", function( data ) {
+	$.get( "listchannels/", function( data ) {
 		var peers = JSON.parse(data);
 		console.log(peers);
 		var channel_html = "";
@@ -246,12 +246,12 @@ function listchannels(){
 			channel_html += "<br />";
 		}
 		$('#channelText').html(channel_html);
-                console.log( "LN list channels: " + data );
-        
+		console.log( "LN list channels: " + data );
+	
 		// close channel button event
 		// this is seemingly hidden down here because the listener needs to be defined after the buttons are created
-        	$('.close_channel').click(function() {
-        		closeChannel(this.id);
+		$('.close_channel').click(function() {
+			closeChannel(this.id);
 		});
 	});
 }
@@ -268,7 +268,7 @@ function createInvoice(){
 	$.get( invoiceURL, function( data ) {
 		$('#invoiceText').html(data);
 		console.log( "Invoice: " + data );
-        });
+	});
 }
 
 function bolt11(action){
@@ -287,24 +287,24 @@ function bolt11(action){
 			response += "Error: " + jsonData.message + "<br />";
 		}else if (action == "pay"){
 			response += "Amount: " + jsonData.msatoshi + " msatoshi<br />";
-                        response += "Status: " + jsonData.status + "<br />";
-                        response += "Recipient: " + jsonData.destination + "<br />";
+			response += "Status: " + jsonData.status + "<br />";
+			response += "Recipient: " + jsonData.destination + "<br />";
 			response += "Payment Hash: " + jsonData.payment_hash;
 			
 			// since a payment was just made, refresh the wallet balances
 			getbalances();
 		}else if(action = "decode"){
 			response += "Amount: " + jsonData.msatoshi + " msatoshi<br />";
-                	response += "Description: " + jsonData.description + "<br />";
-                	response += "Recipient: " + jsonData.payee;
+			response += "Description: " + jsonData.description + "<br />";
+			response += "Recipient: " + jsonData.payee;
 		}else {
 			response += "Error: Bad Action";
 		}
 
 		response += "<br />";
-                $('#paymentText').html(response);
-                console.log( "Bolt11 " + action + " : " + data );
-        });
+		$('#paymentText').html(response);
+		console.log( "Bolt11 " + action + " : " + data );
+	});
 }
 
 function getbalances(){

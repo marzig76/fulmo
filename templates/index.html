@@ -1,9 +1,17 @@
-<html>
+<!doctype html>
+
+<html lang="en">
 <head>
+	<meta charset="utf-8">
+
 	<script type="text/javascript" src="{{ url_for('static', filename='jquery-3.3.1.min.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='fulmo.js') }}"></script>
 	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+
 	<title>&#9889;fulmo&#9889;</title>
+	<meta name="description" content="A simple Lightning Network Interface" />
+	<meta name="author" content="Mike Marzigliano" />
+	<meta name="contact" content="marzig76@gmail.com" />
 </head>
 <body>
 	<h1>&#9889;fulmo: a minimalist c-lightning UI&#9889;</h1>
@@ -27,39 +35,39 @@
 		</span>
 		<span id="channelText"></span><br />
 	</div>
-        <div id="connections" class="channels">
-                <span id="connectionTitle">
+	<div id="connections" class="channels">
+		<span id="connectionTitle">
 			Open a Channel:<br />
 			<a href='https://lnmainnet.gaben.win/?100='>Find a node to connect to</a>
 			<br />
 		</span>
-                <span id="connectionText"></span><br />
-                <input id="connection" type="text" value="NodeID@IPaddress:Port" size="50"><br />
+		<span id="connectionText"></span><br />
+		<input id="connection" type="text" value="NodeID@IPaddress:Port" size="50"><br />
 		<input id="connectionAmount" type="number" value="100000">Satoshis<br />
-                <input id="connect" type="button" value="Connect">
+		<input id="connect" type="button" value="Connect">
 	</div>
 	<div id="balances" class="balances">
 		<span id="onchainbalance"></span>
 		<span id="lightningbalance"></span>
 	</div>
 	<div id="funding" class="onchainwallet">
-                <span id="fundingTitle">Funding:<br /></span>
-                <span id="fundingText"></span><br />
-                Bech32?
-                <input id="bech32" type="checkbox" checked="checked"><br />
-                <input id="fundingButton" type="button" value="Generate Address"/>
-        </div>
+		<span id="fundingTitle">Funding:<br /></span>
+		<span id="fundingText"></span><br />
+		Bech32?
+		<input id="bech32" type="checkbox" checked="checked"><br />
+		<input id="fundingButton" type="button" value="Generate Address"/>
+	</div>
 	<div id="withdraw" class="onchainwallet">
-                <span id="withdrawTitle">Withdraw Funds:<br /></span>
-                <span id="withdrawText"></span><br />
+		<span id="withdrawTitle">Withdraw Funds:<br /></span>
+		<span id="withdrawText"></span><br />
 		Recipient:
-                <input id="withdrawAddress" type="text" value=""/><br />
+		<input id="withdrawAddress" type="text" value=""/><br />
 		Amount to send:
 		<input id="withdrawAmount" type="text" value=""/><br />
 		Send all on-chain funds?
 		<input id="withdrawAll" type="checkbox"/><br />
-                <input id="withdrawButton" type="button" value="Send"/>
-        </div>
+		<input id="withdrawButton" type="button" value="Send"/>
+	</div>
 	<div id="invoices" class="lightningwallet">
 		<span id="invoiceTitle">Invoices:<br /></span>
 		<span id="invoiceText"></span><br />
@@ -73,7 +81,7 @@
 	</div>
 	<div id="payment" class="lightningwallet">
 		<span id="paymentTitle">Make a Lightning Payment:<br /></span>
-                <span id="paymentText"></span><br />
+		<span id="paymentText"></span><br />
 		<textarea id="bolt11"></textarea><br />
 		<input id="decodebolt11" type="button" value="Decode Payment" />
 		<input id="paybolt11" type="button" value="Send Payment" />

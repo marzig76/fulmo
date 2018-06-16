@@ -130,7 +130,7 @@ function showAll(){
 }
 
 function refresh(){
-	console.log("refresh");	
+	console.log("refresh");
 	getinfo();
 	listchannels();
 	getbalances();
@@ -144,7 +144,7 @@ function getinfo(){
 			getinfoHTML += key + ": " + getinfo[key] + "<br />";
 		}
 		$('#getinfoText').html(getinfoHTML);
-	});	
+	});
 }
 
 function connect(){
@@ -173,7 +173,13 @@ function closeChannel(channel_id){
 function getNewAddr(){
 	var addrURL = "newaddr/";
 	if ($('#bech32').is(':checked')){
-		addrURL = addrURL + "?type=bech32";
+		addrURL += "?type=bech32";
+	}else {
+		addrURL += "?type=p2sh-segwit";
+	}
+
+	if ($('#fundingQR').is(":checked")){
+		addrURL += "&qr";
 	}
 
 	$.get( addrURL, function( data ) {
@@ -186,8 +192,11 @@ function getNewAddr(){
 			response += "Error: " + jsonData.message + "<br />";
 		}else {
 			response += jsonData.address + "<br />";
-			response += "<img src='/" + jsonData.qr + "'height='200' width='200'/>";
-			response += "<br />";
+
+			if ("qr" in jsonData){
+				response += "<img src='/" + jsonData.qr + "'height='200' width='200'/>";
+				response += "<br />";
+			}
 		}
 		$('#fundingText').html(response);
 		console.log( "New Address: " + data );
@@ -274,7 +283,7 @@ function createInvoice(){
 	var invoiceURL = "invoice/?amount=" + amount + "&description=" + description;
 
 	if ($('#invoiceQR').is(':checked')){
-		invoiceURL = invoiceURL + "&qr";
+		invoiceURL += "&qr";
 	}
 
 	$.get( invoiceURL, function( data ) {
@@ -287,7 +296,7 @@ function createInvoice(){
 			response += jsonData.message;
 		}else {
 			response += jsonData.bolt11;
-			
+
 			if ("qr" in jsonData){
 				response += "<br />"
 				response += "<img src='/" + jsonData.qr + "'height='200' width='200'/>";

@@ -16,13 +16,17 @@ def fulmo():
 
 @app.route("/newaddr/")
 def new_address():
-	bech32 = request.args.get('type')
+	addr_type = request.args.get('type')
+	make_qr = request.args.get('qr')
 
 	try:
-		addr = ln.newaddr(bech32)
+		addr = ln.newaddr(addr_type)
 		result = {}
 		result["address"] = addr["address"]
-		result["qr"] = qr(addr['address'])
+
+		if make_qr is not None:
+			result["qr"] = qr(addr['address'])
+
 	except ValueError, e:
 		result = parse_exception(e)
 

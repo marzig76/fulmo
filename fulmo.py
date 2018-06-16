@@ -68,17 +68,20 @@ def invoice():
 	make_qr = request.args.get("qr")
 	satoshis = request.args.get("amount")
 	description = request.args.get("description")
+	result = {}
 
 	try:
 		invoice = ln.invoice(satoshis, "lbl{}".format(random.random()), description)
-	except ValueError, e:
-		return json.dumps(parse_exception(e))
+		bolt11 = invoice["bolt11"]
+		result["bolt11"] = bolt11
 
-	bolt11 = str(invoice["bolt11"])
-	if make_qr is not None:
-		return bolt11 + qr("lightning:" + bolt11)
-	else:
-		return bolt11
+		if make_qr is not None:
+			result["qr"] = qr("lightning:" + bolt11)
+
+	except ValueError, e:
+		result = parse_exception(e)
+
+	return json.dumps(result)
 
 @app.route("/bolt11/<action>")
 def bolt11(action):
@@ -195,7 +198,7 @@ def qr(data):
 	img = qrcode.make(data)
 	filename = "static/qrcodes/" + data + ".png"
 	img.save(filename)
-	return str("<br /><img src='/" + filename + "'height='200' width='200'/>")
+	return filename
 
 def parse_exception(e):
 	# The ValueError that's thrown from the Lightning RPC library

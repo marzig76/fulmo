@@ -185,8 +185,9 @@ function getNewAddr(){
 		if ("message" in jsonData){
 			response += "Error: " + jsonData.message + "<br />";
 		}else {
-			response += jsonData.address;
-			response += jsonData.qr + "<br />";
+			response += jsonData.address + "<br />";
+			response += "<img src='/" + jsonData.qr + "'height='200' width='200'/>";
+			response += "<br />";
 		}
 		$('#fundingText').html(response);
 		console.log( "New Address: " + data );
@@ -279,16 +280,21 @@ function createInvoice(){
 	$.get( invoiceURL, function( data ) {
 		// if there's an error, the json data will contain a "message" key
 		// display that, otherwise display the actual response
-		try {
-			if ("message" in JSON.parse(data)){
-				jsonData = JSON.parse(data);
-				data = jsonData.message;
+		var jsonData = JSON.parse(data);
+		var response = "<br />";
+
+		if ("message" in jsonData){
+			response += jsonData.message;
+		}else {
+			response += jsonData.bolt11;
+			
+			if ("qr" in jsonData){
+				response += "<br />"
+				response += "<img src='/" + jsonData.qr + "'height='200' width='200'/>";
 			}
-		}catch(err){
-			console.log(err.message);
 		}
 
-		$('#invoiceText').html("<br />" + data + "<br />");
+		$('#invoiceText').html(response + "<br />");
 		console.log( "Invoice: " + data );
 	});
 }

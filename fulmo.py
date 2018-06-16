@@ -17,8 +17,16 @@ def fulmo():
 @app.route("/newaddr/")
 def new_address():
 	bech32 = request.args.get('type')
-	addr = ln.newaddr(bech32)
-	return addr['address'] + qr(addr['address'])
+
+	try:
+		addr = ln.newaddr(bech32)
+		result = {}
+		result["address"] = addr["address"]
+		result["qr"] = qr(addr['address'])
+	except ValueError, e:
+		result = parse_exception(e)
+
+	return json.dumps(result)
 
 @app.route("/withdraw/")
 def withdraw():

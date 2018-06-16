@@ -177,7 +177,18 @@ function getNewAddr(){
 	}
 
 	$.get( addrURL, function( data ) {
-		$('#fundingText').html(data);
+		var jsonData = JSON.parse(data);
+		var response = "<br />";
+
+		// if there's an error, the json data will contain a "message" key
+		// display that, otherwise display the actual response
+		if ("message" in jsonData){
+			response += "Error: " + jsonData.message + "<br />";
+		}else {
+			response += jsonData.address;
+			response += jsonData.qr + "<br />";
+		}
+		$('#fundingText').html(response);
 		console.log( "New Address: " + data );
 	});
 }

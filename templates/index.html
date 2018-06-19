@@ -44,9 +44,11 @@
 			<br />
 		</span>
 		<span id="connectionText"></span><br />
-		<input id="connection" type="text" value="NodeID@IPaddress:Port" size="50"><br />
-		<input id="connectionAmount" type="number" value="100000">Satoshis<br />
-		<input id="connect" type="button" value="Connect">
+		<label for="connection">URI:</label>
+		<input id="connection" type="text" value="NodeID@IPaddress:Port" /><br />
+		<label for="connectionAmount">Satoshis:</label>
+		<input id="connectionAmount" type="number" value="100000" /><br />
+		<input id="connect" type="button" value="Connect" />
 	</div>
 	<div id="balances" class="balances">
 		<span id="onchainbalance"></span>

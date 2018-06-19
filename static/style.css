@@ -21,55 +21,37 @@ input[type="button"] {
 	font-size: 16px;
 }
 
-#getinfo {
-	width: 600px;
+.info {
+	width: 700px;
 	border: 1px solid black;
-	overflow-wrap: break-word;
 	margin: 10px;
 }
-#channels {
-	width: 600px;
-	border: 1px solid red;
+.channels {
+	width: 700px;
+	border: 1px solid black;
 	margin: 10px;
 }
-#connections {
-	width: 600px;
-	border: 1px solid red;
+.balances {
+	width: 700px;
 	margin: 10px;
 }
-#invoices {
-	width: 600px;
-	position: relative;
-	border: 1px solid green;
-	overflow-wrap: break-word;
+.onchainwallet {
+	width: 700px;
+	border: 1px solid black;
 	margin: 10px;
 }
-#funding {
-	width: 600px;
-	border: 1px solid blue;
-	overflow-wrap: break-word;
+.lightningwallet {
+	width: 700px;
+	border: 1px solid black;
 	margin: 10px;
 }
-#withdraw {
-	width: 600px;
-	border: 1px solid blue;
-	overflow-wrap: break-word;
-	margin: 10px;
-}
-#payment {
-	width: 600px;
-	border: 1px solid green;
-	overflow-wrap: break-word;
-	margin: 10px;
-}
-#buttons{
-	width: 600px;
+.buttons{
+	width: 700px;
 	margin: 10px;
 }
 
 textarea{
-	width: 580px;
+	width: 650px;
 	height: 100px;
-	border: 1px;
 	margin: 10px;
 }

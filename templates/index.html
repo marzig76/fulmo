@@ -20,7 +20,7 @@
 		<input id="showchannelspeers" type="button" value="Channels and Peers" />
 		<input id="showwallet" type="button" value="On-chain Wallet" />
 		<input id="showpayments" type="button" value="Lightning Wallet" />
-		<input id="showall" type="button" value="Show All" />
+		<!-- <input id="showall" type="button" value="Show All" /> -->
 	</div>
 	<div id="getinfo" class="info">
 		<span id="getinfoTitle">LN Node Info:<br /><span>
@@ -51,33 +51,33 @@
 		<span id="lightningbalance"></span>
 	</div>
 	<div id="funding" class="onchainwallet">
-		<span id="fundingTitle">Funding:<br /></span>
+		<span id="fundingTitle">Receive:<br /></span>
 		<span id="fundingText"></span><br />
-		Bech32?
+		<label for="bech32">Bech32?</label>
 		<input id="bech32" type="checkbox" checked="checked"><br />
-		Generate QR Code?
+		<label for="fundingQR">Generate QR Code?</label>
 		<input id="fundingQR" type="checkbox"/><br />
 		<input id="fundingButton" type="button" value="Generate Address"/>
 	</div>
 	<div id="withdraw" class="onchainwallet">
-		<span id="withdrawTitle">Withdraw Funds:<br /></span>
+		<span id="withdrawTitle">Send:<br /></span>
 		<span id="withdrawText"></span><br />
-		Recipient:
+		<label for="withdrawAddress">Recipient:</label>
 		<input id="withdrawAddress" type="text" value=""/><br />
-		Amount to send:
+		<label for="withdrawAmount">Amount to send:</label>
 		<input id="withdrawAmount" type="text" value=""/><br />
-		Send all on-chain funds?
-		<input id="withdrawAll" type="checkbox"/><br />
+		<label for="withdrawAll">Send all on-chain funds?</label>
+		<input id="withdrawAll" type="checkbox"/><br /><br />
 		<input id="withdrawButton" type="button" value="Send"/>
 	</div>
 	<div id="invoices" class="lightningwallet">
 		<span id="invoiceTitle">Invoices:<br /></span>
 		<span id="invoiceText"></span><br />
-		MilliSatoshis:
+		<label for="invoiceAmont">MilliSatoshis:</label>
 		<input id="invoiceAmount" type="text" value="100000"/><br />
-		Payment Description:
+		<label for="invoiceDescription">Payment Description:</label>
 		<input id="invoiceDescription" type="text" value="pizza"/><br />
-		Generate QR Code?
+		<label for="invoiceQR">Generate QR Code?</label>
 		<input id="invoiceQR" type="checkbox"/><br />
 		<input id="createInvoice" type="button" value="Create Invoice" />
 	</div>

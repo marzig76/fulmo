@@ -295,15 +295,34 @@ function createInvoice(){
 		if ("message" in jsonData){
 			response += jsonData.message;
 		}else {
-			response += jsonData.bolt11;
+			// wrap the invoice in a span, so we can can copy it later
+			response += "<span id='displaybolt11'>" + jsonData.bolt11 + "</span>";
 
 			if ("qr" in jsonData){
 				response += "<br />"
 				response += "<img src='/" + jsonData.qr + "'height='200' width='200'/>";
 			}
+
+			//create button to copy invoice
+			response += "<br />";
+			response += "<input id='copybolt11' type='button' value='Copy Invoice to Clipboard' />";
+
 		}
 
 		$('#invoiceText').html(response + "<br />");
+
+		// now that the copy button has been added to the html page,
+		// the button click event listener can be defined
+		$('#copybolt11').click(function() {
+			var el = document.getElementById("displaybolt11");
+			var range = document.createRange();
+			range.selectNodeContents(el);
+			var sel = window.getSelection();
+			sel.removeAllRanges();
+			sel.addRange(range);
+			document.execCommand('copy');
+			sel.removeAllRanges();
+		});
 		console.log( "Invoice: " + data );
 	});
 }

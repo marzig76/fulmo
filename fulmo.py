@@ -46,17 +46,7 @@ def withdraw():
 
 @app.route("/getinfo/")
 def get_info():
-	info = {}
-	get_info = ln.getinfo()
-	info["Network"] = get_info["network"]
-	info["Port"] = get_info["port"]
-	info["Version"] = get_info["version"]
-	info["Block Height"] = get_info["blockheight"]
-	info["Lightning Node ID"] = get_info["id"]
-	info["On-Chain Balance"] = str(int(list_funds()) * 0.00000001) + " BTC"
-
-	json_data = json.dumps(info)
-	return json_data
+	return json.dumps(ln.getinfo())
 
 @app.route("/listfunds/")
 def list_funds():

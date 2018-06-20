@@ -140,9 +140,13 @@ function getinfo(){
 	$.get( "getinfo/", function( data ) {
 		var getinfo = JSON.parse(data);
 		var getinfoHTML = "";
-		for (var key in getinfo){
-			getinfoHTML += key + ": " + getinfo[key] + "<br />";
-		}
+
+		getinfoHTML += "Network: " + getinfo.network + "<br />";
+		getinfoHTML += "Port: " + getinfo.port + "<br />";
+		getinfoHTML += "Version: " + getinfo.version + "<br />";
+		getinfoHTML += "Block Height: " + getinfo.blockheight + "<br />";
+		getinfoHTML += "Lightning Node ID: " + getinfo.id + "<br />";
+
 		$('#getinfoText').html(getinfoHTML);
 	});
 }

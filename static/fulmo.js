@@ -372,9 +372,9 @@ function getbalances(){
 		console.log("onchain balance: " + data);
 		$('#onchainbalance').html("<br />On-chain Balance: " + data * 0.00000001 + " BTC<br />");
 	});
-	$.get( "listchannels/", function( data ) {
-		var channels = JSON.parse(data);
-		var balance = (channels.balance * 0.00000000001).toFixed(8)
+	$.get( "lightningbalance/", function( data ) {
+		var response = JSON.parse(data);
+		var balance = (response.balance * 0.00000000001).toFixed(8)
 		console.log("lightning balance: " + balance);
 		$('#lightningbalance').html("Lightning Balance: " + balance + " BTC<br />");
 	});

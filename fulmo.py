@@ -99,6 +99,23 @@ def help():
 	help_result = ln.help()
 	return json.dumps(help_result)
 
+@app.route("/lightningbalance/")
+def lightning_balance():
+	# Simply loop through all peers,
+	# then loop through all the channels with each peer.
+	# If we have an open channel with that peer,
+	# add that channel balance to our running total
+	get_peers = ln.listpeers()
+	total_balance = 0
+	for peers_key, peers in get_peers.iteritems():
+		for peer_key, peer in enumerate(peers):
+			if "channels" in peer:
+				for channel_key, channel in enumerate(peer["channels"]):
+					if channel["state"] == "CHANNELD_NORMAL":
+						total_balance = total_balance + channel["msatoshi_to_us"]
+
+	return json.dumps({"balance": total_balance})
+
 @app.route("/listchannels/")
 def list_channels():
 	peers = ln.listpeers()

@@ -212,22 +212,21 @@ def qr(data):
 	return filename
 
 def parse_exception(e):
-	# The ValueError that's thrown from the Lightning RPC library
-	# contains (among other text) a string representation of a dict object.
-	# This is a little hacky, but the goal here is to extract that dict
+	# The ValueError that's raised from the Lightning RPC library
+	# contains (among other text) a string representation of multiple dict objects.
+	# This is a little hacky, but the goal here is to extract the first dict
 	# and return it, so it can be used as an actual dict, not a string
 	error = str(e)
 
 	# Trying to extract the dict based on the presence of curly braces
-	msg_str = error[error.find("{"):error.find("}")+1]
+	msg_str = error[error.find("{"):error.find(", method")]
 
-	# Sometimes a SyntaxError is thrown because there are
-	# multiple sets of braces, and the above code stops one brace short..
-	# If that happens, add an extra curly brace and call it a day
+	# Sometimes a SyntaxError is raised when we fail to extract the dict perfectly
+	# In that case we just return the original error message
 	try:
 		final_dict = ast.literal_eval(msg_str)
 	except SyntaxError:
-		final_dict = ast.literal_eval(msg_str + "}")
+		final_dict = {"Parse Error": error}
 
 	return final_dict
 

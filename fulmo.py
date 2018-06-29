@@ -64,6 +64,10 @@ def invoice():
 	description = request.args.get("description")
 	result = {}
 
+	# Make an invoice for any amount
+	if satoshis == "":
+		satoshis = "any"
+
 	try:
 		invoice = ln.invoice(satoshis, "lbl{}".format(random.random()), description)
 		bolt11 = invoice["bolt11"]

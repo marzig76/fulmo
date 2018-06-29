@@ -337,6 +337,13 @@ function bolt11(action){
 
 	url += "?bolt11=" + bolt11;
 
+	// When paying an invoice, the response from the c-lightning server
+	// can someimes take a few seconds, leaving the user wondering what's happening
+	// Immediately show a message telling the user that it's in progress
+	if (action == "pay"){
+		$('#paymentText').html("<br />Finding a route...");
+	}
+
 	$.get( url, function( data ) {
 		jsonData = JSON.parse(data);
 		response = "<br />";

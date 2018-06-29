@@ -55,7 +55,7 @@ def list_funds():
 	for item in funds['outputs']:
 		balance = balance + item["value"]
 
-	return str(balance)
+	return json.dumps({"balance": balance})
 
 @app.route("/invoice/")
 def invoice():

@@ -377,9 +377,9 @@ function bolt11(action){
 function getbalances(){
 	$.get( "listfunds/", function( data ) {
 		var response = JSON.parse(data);
-		var balance = response.balance
+		var balance = response.balance * 0.00000001
 		console.log("onchain balance: " + balance);
-		$('#onchainbalance').html("<br />On-chain Balance: " + balance * 0.00000001 + " BTC<br />");
+		$('#onchainbalance').html("<br />On-chain Balance: " + balance + " BTC<br />");
 	});
 	$.get( "lightningbalance/", function( data ) {
 		var response = JSON.parse(data);

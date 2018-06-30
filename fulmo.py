@@ -66,6 +66,7 @@ def invoice():
 	make_qr = request.args.get("qr")
 	satoshis = request.args.get("amount")
 	description = request.args.get("description")
+	expire = request.args.get("expire")
 	result = {}
 
 	# Make an invoice for any amount
@@ -73,7 +74,7 @@ def invoice():
 		satoshis = "any"
 
 	try:
-		invoice = ln.invoice(satoshis, "lbl{}".format(random.random()), description)
+		invoice = ln.invoice(satoshis, "lbl{}".format(random.random()), description, expire)
 		bolt11 = invoice["bolt11"]
 		result["bolt11"] = bolt11
 
@@ -123,6 +124,10 @@ def lightning_balance():
 						total_balance = total_balance + channel["msatoshi_to_us"]
 
 	return json.dumps({"balance": total_balance})
+
+@app.route("/listchannels2/")
+def list_channels2():
+	return json.dumps(ln.listpeers())
 
 @app.route("/listchannels/")
 def list_channels():

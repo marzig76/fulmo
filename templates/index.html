@@ -82,6 +82,15 @@
 		<input id="invoiceAmount" type="text" value="100000"/><br />
 		<label for="invoiceDescription">Payment Description:</label>
 		<input id="invoiceDescription" type="text" value="pizza"/><br />
+		<label for="expire">Expires In:</label>
+		<select id="expire" name="expire">
+			<option value="3600" selected="selected">1 Hour</option>
+			<option value="21600">6 Hours</option>
+			<option value="43200">12 Hours</option>
+			<option value="86400">1 Day</option>
+			<option value="259200">3 Days</option>
+			<option value="604800">1 Week</option>
+		</select><br />
 		<label for="invoiceQR">Generate QR Code?</label>
 		<input id="invoiceQR" type="checkbox"/><br />
 		<input id="createInvoice" type="button" value="Create Invoice" />

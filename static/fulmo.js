@@ -316,7 +316,8 @@ function listchannels(){
 function createInvoice(){
 	var amount = $('#invoiceAmount').val();
 	var description = $('#invoiceDescription').val();
-	var invoiceURL = "invoice/?amount=" + amount + "&description=" + description;
+	var expire = $("#expire").val();
+	var invoiceURL = "invoice/?amount=" + amount + "&description=" + description + "&expire=" + expire;
 
 	if ($('#invoiceQR').is(':checked')){
 		invoiceURL += "&qr";

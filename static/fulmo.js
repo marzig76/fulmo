@@ -396,7 +396,10 @@ function bolt11(action){
 		}else if(action = "decode"){
 			response += "Amount: " + jsonData.msatoshi + " msatoshi<br />";
 			response += "Description: " + jsonData.description + "<br />";
-			response += "Recipient: " + jsonData.payee;
+			response += "Recipient: " + jsonData.payee + "<br />";
+
+			var expire = new Date((jsonData.created_at + jsonData.expiry) * 1000);
+                        response += "Expires At: " + expire.toLocaleString("en-US")
 		}else {
 			response += "Error: Bad Action";
 		}

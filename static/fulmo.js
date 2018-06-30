@@ -95,6 +95,12 @@ $(document).ready(function() {
 		$('.buttons').show();
 	});
 
+	// show LN payment history
+	$('#showhistory').click(function() {
+		hideAll();
+		$('.history').show();
+	});
+
 	// show all
 	$('#showall').click(function() {
 		showAll();
@@ -117,6 +123,7 @@ function hideAll(){
 	$('.balances').hide();
 	$('.onchainwallet').hide();
 	$('.lightningwallet').hide();
+	$('.history').hide();
 	$('.buttons').hide();
 }
 
@@ -126,6 +133,7 @@ function showAll(){
 	$('.balances').show();
 	$('.onchainwallet').show();
 	$('.lightningwallet').show();
+	$('.lightningwallet').show();
 	$('.buttons').show();
 }
 
@@ -134,6 +142,7 @@ function refresh(){
 	getinfo();
 	listchannels();
 	getbalances();
+	gethistory();
 }
 
 function getinfo(){
@@ -148,6 +157,27 @@ function getinfo(){
 		getinfoHTML += "Lightning Node ID: " + getinfo.id + "<br />";
 
 		$('#getinfoText').html(getinfoHTML);
+	});
+}
+
+function gethistory(){
+	$.get( "listpayments/", function( data ){
+		var response = JSON.parse(data);
+		var payments = JSON.parse(JSON.stringify(response["payments"]));
+		console.log(payments);
+		var paymentsHTML = "";
+
+		for (var key in payments) {
+			paymentsHTML += "<br /><div style='border:1px solid black;'>";
+			paymentsHTML += "Recipient: " + payments[key]["destination"] + "<br />";
+			paymentsHTML += "Amount: " + payments[key]["msatoshi"] + " msatoshis<br />";
+			paymentsHTML += "Fee: " + (payments[key]["msatoshi_sent"] - payments[key]["msatoshi"]) + " msatoshis<br />";
+			paymentsHTML += "Status: " + payments[key]["status"] + "<br />";
+			paymentsHTML += "Sent At: " + payments[key]["timestamp"] + "<br />";
+			paymentsHTML += "</div><br />";
+		}
+
+		$('#historyText').html(paymentsHTML);
 	});
 }
 

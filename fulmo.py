@@ -48,6 +48,10 @@ def withdraw():
 def get_info():
 	return json.dumps(ln.getinfo())
 
+@app.route("/listpayments/")
+def list_payments():
+        return json.dumps(ln.listpayments())
+
 @app.route("/listfunds/")
 def list_funds():
 	balance = 0;

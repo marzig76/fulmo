@@ -46,6 +46,11 @@ input[type="button"] {
 	border: 1px solid black;
 	margin: 10px;
 }
+.history {
+	width: 700px;
+	border: 1px solid black;
+	margin: 10px;
+}
 .buttons{
 	width: 700px;
 	margin: 10px;

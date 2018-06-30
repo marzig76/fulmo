@@ -133,7 +133,7 @@ function showAll(){
 	$('.balances').show();
 	$('.onchainwallet').show();
 	$('.lightningwallet').show();
-	$('.lightningwallet').show();
+	$('.history').show();
 	$('.buttons').show();
 }
 

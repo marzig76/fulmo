@@ -125,64 +125,9 @@ def lightning_balance():
 
 	return json.dumps({"balance": total_balance})
 
-@app.route("/listchannels2/")
-def list_channels2():
-	return json.dumps(ln.listpeers())
-
 @app.route("/listchannels/")
 def list_channels():
-	peers = ln.listpeers()
-	data = {}
-	total_balance = 0
-
-	# Relevant peers are ones that we have an open channel with, 
-	# or we're still negotiation a channel with.
-	# If our only relationship to a peer is that we have a closed channel, 
-	# then we don't care about him for now.
-	relevant_peer = {}
-
-	# loop through all peers
-	# get either the peer state, or channel state (if it exists)
-	for key, value in peers.iteritems():
-		for i, val in enumerate(value):
-			data[i] = {}
-			relevant_peer[i] = False
-
-			if "alias" in val:
-				data[i]["alias"] = val["alias"]
-
-			data[i]["peer_id"] = val["id"]
-
-			# If there is a state key in the peer dict, 
-			# that means there is no channel yet, so just use that.
-			# Otherwise, loop through the channels to get their states
-			if "state" in val:
-				# We have a current state with this peer, so he is relevantt
-				relevant_peer[i] = True
-				data[i]["state"] = val["state"]
-			else:
-				for j, channels in enumerate(val["channels"]):
-					data[i][j] = {}
-
-					# ONCHAIN means the channel is closed
-					# So if the channel state is not "ONCHAIN",
-					# then this peer is relevant.
-					if channels["state"] != "ONCHAIN":
-						relevant_peer[i] = True
-						data[i][j]["channel_id"] = channels["channel_id"]
-						data[i][j]["balance"] = channels["msatoshi_to_us"]
-						data[i][j]["state"] = channels["state"]
-						total_balance = total_balance + channels["msatoshi_to_us"]
-
-			# If the peer is irrelevant, just remove him from the list
-			if not relevant_peer[i]:
-				del data[i]
-
-			if total_balance > 0:
-				data["balance"] = total_balance
-
-	json_data = json.dumps(data)
-	return json_data
+	return json.dumps(ln.listpeers())
 
 @app.route("/connect/")
 def connect():

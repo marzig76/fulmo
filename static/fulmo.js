@@ -273,46 +273,6 @@ function withdraw(){
 	getbalances();
 }
 
-function listchannels(){
-	$.get( "listchannels/", function( data ) {
-		var peers = JSON.parse(data);
-		console.log(peers);
-		var channel_html = "";
-		for (var key in peers) {
-
-			if (key == "balance"){
-				channel_html += "Lightning Channels - Total Balance: " + (peers[key] * 0.00000000001).toFixed(8) + " BTC";
-			}else {
-				channel_html += "<div style='border:1px solid black;'>";
-			}
-			var channels = JSON.parse(JSON.stringify(peers[key]));
-			for (var subkey in channels) {
-				if ($.isNumeric(subkey)){
-					var channel = JSON.parse(JSON.stringify(channels[subkey]));
-					for (var channel_key in channel) {
-						if (channel_key == "channel_id"){
-							channel_html += "<input id='4500" + channel[channel_key] + "' type='button' class='close_channel' value='Close this Channel'><br />";
-						}
-						channel_html += channel_key + ": " + channel[channel_key] + "<br />";
-					}
-				}else {
-					channel_html += subkey + ": " + channels[subkey] + "<br />";
-				}
-			}
-			channel_html += "</div>"
-			channel_html += "<br />";
-		}
-		$('#channelText').html(channel_html);
-		console.log( "LN list channels: " + data );
-
-		// close channel button event
-		// this is seemingly hidden down here because the listener needs to be defined after the buttons are created
-		$('.close_channel').click(function() {
-			closeChannel(this.id);
-		});
-	});
-}
-
 function createInvoice(){
 	var amount = $('#invoiceAmount').val();
 	var description = $('#invoiceDescription').val();
@@ -399,7 +359,7 @@ function bolt11(action){
 			response += "Recipient: " + jsonData.payee + "<br />";
 
 			var expire = new Date((jsonData.created_at + jsonData.expiry) * 1000);
-                        response += "Expires At: " + expire.toLocaleString("en-US")
+			response += "Expires At: " + expire.toLocaleString("en-US")
 		}else {
 			response += "Error: Bad Action";
 		}
@@ -423,6 +383,54 @@ function getbalances(){
 		console.log("lightning balance: " + balance);
 		$('#lightningbalance').html("Lightning Balance: " + balance + " BTC<br />");
 	});
+}
+
+function listchannels(){
+	$.get( "listchannels/", function( data ) {
+		var response = JSON.parse(data);
+		var peers = JSON.parse(JSON.stringify(response["peers"]));
+		var channel_html = "";
+
+		// Loop through each peer
+		// Display peers that we have channels with,
+		// or are still negotiating a channel with
+		for (var key in peers) {
+			// if the state field exists for a peer,
+			// it means we're still negotiation a channel
+			if ("state" in peers[key]){
+				channel_html += "<div style='border:1px solid black;'>";
+				channel_html += "Alias: " + peers[key].alias + "<br />";
+				channel_html += "State: " + peers[key].state + "<br />";
+				channel_html += "Peer ID: " + peers[key].id;
+				channel_html += "</div><br />";
+			}else if ("channels" in peers[key]){
+				var channels = JSON.parse(JSON.stringify(peers[key].channels));
+				for (var key in channels){
+					// If the channel state is ONCHAIN,
+					// that means it's closed.  Ignore it
+					if (channels[key].state != "ONCHAIN"){
+						channel_html += "<div style='border:1px solid black;'>";
+						channel_html += "Alias: " + peers[key].alias + "<br />";
+						channel_html += "State: " + channels[key].state + "<br />";
+						channel_html += "Balance: " + channels[key].msatoshi_to_us + " msatoshis<br />";
+						channel_html += "Channel ID: " + channels[key].channel_id + "<br />"
+						channel_html += "Peer ID: " + peers[key].id;
+						channel_html += "<input id='4500" + channels[key].channel_id + "' type='button' class='close_channel' value='Close this Channel'><br />";
+						channel_html += "</div><br />";
+					}
+				}
+			}
+		}
+
+		$('#channelText').html(channel_html);
+
+		// close channel button event
+		// this is seemingly hidden down here because the listener function
+		// needs to be defined after the buttons are created
+		$('.close_channel').click(function() {
+			closeChannel(this.id);
+		});
+	})
 }
 
 function clear(){

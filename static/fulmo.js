@@ -164,11 +164,10 @@ function gethistory(){
 	$.get( "listpayments/", function( data ){
 		var response = JSON.parse(data);
 		var payments = JSON.parse(JSON.stringify(response["payments"]));
-		console.log(payments);
-		var paymentsHTML = "";
+		var paymentsHTML = "<br />";
 
 		for (var key in payments) {
-			paymentsHTML += "<br /><div style='border:1px solid black;'>";
+			paymentsHTML += "<div style='border:1px solid black;'>";
 			paymentsHTML += "Recipient: " + payments[key]["destination"] + "<br />";
 			paymentsHTML += "Amount: " + payments[key]["msatoshi"] + " msatoshis<br />";
 			paymentsHTML += "Fee: " + (payments[key]["msatoshi_sent"] - payments[key]["msatoshi"]) + " msatoshis<br />";

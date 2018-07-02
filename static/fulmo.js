@@ -199,8 +199,23 @@ function connect(){
 
 function closeChannel(channel_id){
 	var closeURL = "close/?channel_id=" + channel_id;
+
 	$.get( closeURL, function( data ) {
-		$('#connectionText').html(data);
+		var jsonData = JSON.parse(data);
+		var response = "<br />";
+
+		// If there's an error, the json data will contain a "message" key.
+		// If it's successful, the json data will contain a "txid" key.
+		// If the json data contains neither of those keys,
+		// display a generic message based on the c-lighting documentation
+		if ("message" in jsonData){
+			response += "Error: " + jsonData.message;
+		} else if ("txid" in jsonData){
+			response += "Successfully closed. TXID: " + jsonData.txid;
+		} else {
+			response += "Unable to contact peer. This channel will eventually be closed."
+		}
+		$('#connectionText').html(response + "<br />");
 	});
 
 	getbalances();
@@ -407,7 +422,7 @@ function listchannels(){
 				var channels = JSON.parse(JSON.stringify(peers[key].channels));
 				for (var key in channels){
 					// If the channel state is ONCHAIN,
-					// that means it's closed.  Ignore it
+					// that means it's closed. Ignore it
 					if (channels[key].state != "ONCHAIN"){
 						channel_html += "<div style='border:1px solid black;'>";
 						channel_html += "Alias: " + peers[key].alias + "<br />";

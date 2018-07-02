@@ -187,12 +187,28 @@ function connect(){
 	var node = $('#connection').val();
 	var connectURL = connectEndpoint + "?c=" + node
 	var satoshis = Number($('#connectionAmount').val());
+	$('#connectionText').html("<br />Attempting to connect...<br />");
 	connectURL = connectURL + "&satoshis=" + satoshis;
 
 	$.get( connectURL, function( data ) {
-		$('#connectionText').html(data);
+		var jsonData = JSON.parse(data);
+		var response = "<br />";
+
+		// If there's an error, the json data will contain a "message" key.
+		// If it's successful, the json data will contain a "txid" key.
+		// If the json data contains neither of those keys,
+		// display a generic message based on the c-lighting documentation
+		if ("message" in jsonData){
+			response += "Error: " + jsonData.message;
+		} else if ("txid" in jsonData){
+			response += "Successfully opened.";
+			response += "TXID: " + jsonData.txid;
+			response += "Channel ID: " + jsonData.channel_id;
+		} else {
+			response += "Something went wrong."
+		}
+		$('#connectionText').html(response + "<br />");
 		listchannels();
-		// console.log( "Connection: " + data );
 	});
 }
 

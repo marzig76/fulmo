@@ -111,7 +111,8 @@
 		<span id="paymentTitle"><span class="subtitle">Pay a Lightning Invoice:</span><br /></span>
 		<span id="paymentText"></span><br />
 		<textarea id="bolt11"></textarea><br />
-		<input id="decodebolt11" type="button" value="Decode Payment" />
+		<!-- No need for the decode button since we're handling it through the paste event
+		<input id="decodebolt11" type="button" value="Decode Payment" /> -->
 		<input id="paybolt11" type="button" value="Send Payment" />
 	</div>
 	<div id="history" class="history">

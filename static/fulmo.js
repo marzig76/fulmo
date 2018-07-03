@@ -48,6 +48,11 @@ $(document).ready(function() {
 		bolt11("decode");
 	});
 
+	// decode payment when an invoice is pasted in
+	$("#bolt11").on("input propertychange", function() {
+		bolt11("decode");
+	});
+
 	// make payment button event
 	$('#paybolt11').click(function() {
 		bolt11("pay");
@@ -356,6 +361,12 @@ function createInvoice(){
 
 function bolt11(action){
 	var bolt11 = $('#bolt11').val();
+
+	// just return is bolt11 value is null
+	if (!bolt11){
+		return false;
+	}
+
 	var url = "bolt11/" + action;
 
 	url += "?bolt11=" + bolt11;

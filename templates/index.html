@@ -24,22 +24,34 @@
 		<!-- <input id="showall" type="button" value="Show All" /> -->
 	</div>
 	<div id="getinfo" class="info">
-		<span id="getinfoTitle">LN Node Info:<br /><span>
-		<span id="getinfoText"><span>
+		<span id="getinfoTitle"><span class="subtitle">LN Node Info:</span><br /></span>
+		<span id="getinfoText"></span>
+		<span id="getinfoBlurb">
+		<br />
+		<span class="subtitle">Quick Start:</span><br />
+		To get started, send some Bitcoin to this wallet by clicking on the <span class="keyword">On-chain Wallet</span> button, and generating a receive address.
+		<br /><br />
+		Once you have some funds, open up a channel from the <span class="keyword">Channels</span> button.
+		<br /><br />
+		After you have an open channel, you can generate and pay Lightning Network invoices from the <span class="keyword">Lighting Wallet</span> button.
+		</span>
 	</div>
 	<div id="channels" class="channels">
 		<span id="channelTitle">
-			Channels:<br />
+			<span class="subtitle">Channels:</span><br />
+			<!--
 			<a target="_blank"
 			   href="https://github.com/ElementsProject/lightning#different-states">
 				Channel State Definitions
-			</a><br /><br />
+			</a>
+			-->
+			<br />
 		</span>
 		<span id="channelText"></span><br />
 	</div>
 	<div id="connections" class="channels">
 		<span id="connectionTitle">
-			Open a Channel:<br />
+			<span class="subtitle">Open a Channel:</span><br />
 			<a target="_blank"
 			   href='https://lnmainnet.gaben.win/?100='>Find a node to connect to
 			</a><br />
@@ -56,7 +68,7 @@
 		<span id="lightningbalance"></span>
 	</div>
 	<div id="funding" class="onchainwallet">
-		<span id="fundingTitle">Receive:<br /></span>
+		<span id="fundingTitle"><span class="subtitle">Receive:</span><br /></span>
 		<span id="fundingText"></span><br />
 		<label for="bech32">Bech32?</label>
 		<input id="bech32" type="checkbox" checked="checked"><br />
@@ -65,7 +77,7 @@
 		<input id="fundingButton" type="button" value="Generate Address"/>
 	</div>
 	<div id="withdraw" class="onchainwallet">
-		<span id="withdrawTitle">Send:<br /></span>
+		<span id="withdrawTitle"><span class="subtitle">Send:</span><br /></span>
 		<span id="withdrawText"></span><br />
 		<label for="withdrawAddress">Recipient:</label>
 		<input id="withdrawAddress" type="text" value=""/><br />
@@ -76,7 +88,7 @@
 		<input id="withdrawButton" type="button" value="Send"/>
 	</div>
 	<div id="invoices" class="lightningwallet">
-		<span id="invoiceTitle">Invoices:<br /></span>
+		<span id="invoiceTitle"><span class="subtitle">Invoices:</span><br /></span>
 		<span id="invoiceText"></span><br />
 		<label for="invoiceAmont">MilliSatoshis:</label>
 		<input id="invoiceAmount" type="text" value="100000"/><br />
@@ -96,14 +108,14 @@
 		<input id="createInvoice" type="button" value="Create Invoice" />
 	</div>
 	<div id="payment" class="lightningwallet">
-		<span id="paymentTitle">Make a Lightning Payment:<br /></span>
+		<span id="paymentTitle"><span class="subtitle">Pay a Lightning Invoice:</span><br /></span>
 		<span id="paymentText"></span><br />
 		<textarea id="bolt11"></textarea><br />
 		<input id="decodebolt11" type="button" value="Decode Payment" />
 		<input id="paybolt11" type="button" value="Send Payment" />
 	</div>
 	<div id="history" class="history">
-		<span id="historyTitle">Payment History:<br /></span>
+		<span id="historyTitle"><span class="subtitle">Payment History:</span><br /></span>
 		<span id="historyText"></span>
 	</div>
 	<div id="buttons" class="buttons">

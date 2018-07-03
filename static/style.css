@@ -26,31 +26,46 @@ input[type="button"] {
 	border: 1px solid black;
 	margin: 10px;
 }
+
+.keyword {
+	font-family: monospace, sans-serif;
+	font-weight: bold;
+}
+
+.subtitle {
+        font-weight: bold;
+}
+
 .channels {
 	width: 700px;
 	border: 1px solid black;
 	margin: 10px;
 }
+
 .balances {
 	width: 700px;
 	margin: 10px;
 }
+
 .onchainwallet {
 	width: 700px;
 	border: 1px solid black;
 	margin: 10px;
 }
+
 .lightningwallet {
 	width: 700px;
 	word-wrap: break-word;
 	border: 1px solid black;
 	margin: 10px;
 }
+
 .history {
 	width: 700px;
 	border: 1px solid black;
 	margin: 10px;
 }
+
 .buttons{
 	width: 700px;
 	margin: 10px;

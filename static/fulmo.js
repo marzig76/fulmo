@@ -381,8 +381,10 @@ function bolt11(action){
 			response += "Recipient: " + jsonData.destination + "<br />";
 			response += "Payment Hash: " + jsonData.payment_hash;
 
-			// since a payment was just made, refresh the wallet balances
+			// since a payment was just made,
+			// refresh the wallet balances and payment history
 			getbalances();
+			gethistory();
 		}else if(action = "decode"){
 			response += "Amount: " + jsonData.msatoshi + " msatoshi<br />";
 			response += "Description: " + jsonData.description + "<br />";

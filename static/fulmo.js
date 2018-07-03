@@ -167,7 +167,7 @@ function gethistory(){
 		var paymentsHTML = "<br />";
 
 		for (var key in payments) {
-			paymentsHTML += "<div style='border:1px solid black;'>";
+			paymentsHTML += "<div class='alt'>";
 			paymentsHTML += "Recipient: " + payments[key]["destination"] + "<br />";
 			paymentsHTML += "Amount: " + payments[key]["msatoshi"] + " msatoshis<br />";
 			paymentsHTML += "Fee: " + (payments[key]["msatoshi_sent"] - payments[key]["msatoshi"]) + " msatoshis<br />";
@@ -175,7 +175,7 @@ function gethistory(){
 
 			var sent = new Date(payments[key]["timestamp"] * 1000);
 			paymentsHTML += "Sent At: " + sent.toLocaleString("en-US") + "<br />";
-			paymentsHTML += "</div><br />";
+			paymentsHTML += "</div>";
 		}
 
 		$('#historyText').html(paymentsHTML);
@@ -430,7 +430,7 @@ function listchannels(){
 			// if the state field exists for a peer,
 			// it means we're still negotiation a channel
 			if ("state" in peers[key]){
-				channel_html += "<div style='border:1px solid black;'>";
+				channel_html += "<div class='alt'>";
 				channel_html += "Alias: " + peers[key].alias + "<br />";
 				channel_html += "State: " + peers[key].state + "<br />";
 				channel_html += "Peer ID: " + peers[key].id;
@@ -441,7 +441,7 @@ function listchannels(){
 					// If the channel state is ONCHAIN,
 					// that means it's closed. Ignore it
 					if (channels[key].state != "ONCHAIN"){
-						channel_html += "<div style='border:1px solid black;'>";
+						channel_html += "<div class='alt'>";
 						channel_html += "Alias: " + peers[key].alias + "<br />";
 						channel_html += "State: " + channels[key].state + "<br />";
 						channel_html += "Balance: " + channels[key].msatoshi_to_us + " msatoshis<br />";

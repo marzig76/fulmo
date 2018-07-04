@@ -1,1 +1,14 @@
-FLASK_APP=fulmo.py flask run 
+#!/bin/bash
+
+if [[ $1 = '--no-ssl' ]]
+then
+	sed -i s/ssl_context=\'adhoc\'/ssl_context=None/g fulmo.py
+else
+	sed -i s/ssl_context=None/ssl_context=\'adhoc\'/g fulmo.py
+fi
+
+# run using context options specified in fulmo.py
+python fulmo.py
+
+# run using context options specified via command line arguments
+#FLASK_APP=fulmo.py flask run --host=192.168.0.100

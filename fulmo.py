@@ -190,4 +190,4 @@ def parse_exception(e):
 	return final_dict
 
 if __name__ == "__main__":
-	app.run(host="192.168.0.100",ssl_context='adhoc')
+	app.run(host="0.0.0.0",ssl_context='adhoc')

@@ -119,6 +119,10 @@ $(document).ready(function() {
 function defaultView(){
 	hideAll();
 	$('.info').show();
+
+	// blank out some form fields that might be leftover from a page refresh
+	$('#payInvoiceAmount').val("");
+	$('#bolt11').val("");
 }
 
 function hideAll(){
@@ -128,6 +132,7 @@ function hideAll(){
 	$('.balances').hide();
 	$('.onchainwallet').hide();
 	$('.lightningwallet').hide();
+	$('#noAmount').hide();
 	$('.history').hide();
 	$('.buttons').hide();
 }
@@ -361,15 +366,19 @@ function createInvoice(){
 
 function bolt11(action){
 	var bolt11 = $('#bolt11').val();
+	var amount = $('#payInvoiceAmount').val();
 
-	// just return is bolt11 value is null
+	// just return false if bolt11 value is null
 	if (!bolt11){
 		return false;
 	}
 
 	var url = "bolt11/" + action;
-
 	url += "?bolt11=" + bolt11;
+
+	if (amount){
+		url += "&amount=" + amount;
+	}
 
 	// When paying an invoice, the response from the c-lightning server
 	// can someimes take a few seconds, leaving the user wondering what's happening
@@ -385,7 +394,7 @@ function bolt11(action){
 		// if there's an error, the json data will contain a "message" key
 		// display that, otherwise display the actual response
 		if ("message" in jsonData){
-			response += "Error: " + jsonData.message + "<br />";
+			response += "Error: " + jsonData.message;
 		}else if (action == "pay"){
 			response += "Amount: " + jsonData.msatoshi + " msatoshi<br />";
 			response += "Status: " + jsonData.status + "<br />";
@@ -397,6 +406,17 @@ function bolt11(action){
 			getbalances();
 			gethistory();
 		}else if(action = "decode"){
+			// This field gets hidden/shown based on whether the invoice
+			// has an amount specified.  Sometimes when it's hidden, there
+			// is still an unnesesary value.  Blank it out.
+			$('#payInvoiceAmount').val("");
+
+			// if there is no amount, show the input to enter an amount
+			if (!jsonData.msatoshi){
+				$('#noAmount').show();
+			}else {
+				$('#noAmount').hide();
+			}
 			response += "Amount: " + jsonData.msatoshi + " msatoshi<br />";
 			response += "Description: " + jsonData.description + "<br />";
 			response += "Recipient: " + jsonData.payee + "<br />";

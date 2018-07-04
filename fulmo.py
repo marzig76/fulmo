@@ -89,10 +89,11 @@ def invoice():
 @app.route("/bolt11/<action>")
 def bolt11(action):
 	bolt11 = request.args.get("bolt11")
+	amount = request.args.get("amount")
 
 	try:
 		if action == "pay":
-			result = ln.pay(bolt11)
+			result = ln.pay(bolt11, amount)
 		elif action == "decode":
 			result = ln.decodepay(bolt11)
 		else:

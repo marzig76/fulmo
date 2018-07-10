@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [[ $1 = '--no-ssl' ]]
+if [[ $1 = '--ssl' ]]
 then
-	sed -i s/ssl_context=\'adhoc\'/ssl_context=None/g fulmo.py
-else
 	sed -i s/ssl_context=None/ssl_context=\'adhoc\'/g fulmo.py
+else
+	sed -i s/ssl_context=\'adhoc\'/ssl_context=None/g fulmo.py
 fi
 
 # run using context options specified in fulmo.py

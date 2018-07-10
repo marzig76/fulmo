@@ -33,10 +33,10 @@ cd fulmo
 ./fulmo
 ```
 
-Then just open a web browser to https://localhost:5000
+Then just open a web browser to http://localhost:5000
 
 Notes
 ============
-This will set up a web UI for your locally running c-lightning node.  By default, it will use automatically generated self-signed certs for SSL encryption.  If you don't want encryption, you can specify the ```--no-ssl``` command line argument.
+This will set up a web UI for your locally running c-lightning node.  By default, it will use an unencrypted connection.  If you want an encrypted connection with automatically generated self-signed certs, you can specify the ```--ssl``` command line argument: ```./fulmo --ssl```.  Then use https when connecting.
 
-The service binds to all local interfaces, so it will be accessable to your entire local network.  This is ideal for running it on a raspberry pi, then accessing it from another device on your network like your laptop or phone.
+The service binds to all local interfaces, so it will be accessable to your entire local network.  This is ideal for running it on a raspberry pi, then accessing it from another device on your network like your laptop or smart phone.

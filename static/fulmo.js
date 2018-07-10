@@ -160,12 +160,20 @@ function getinfo(){
 		var getinfo = JSON.parse(data);
 		var getinfoHTML = "";
 
-		getinfoHTML += "Network: " + getinfo.network + "<br />";
-		getinfoHTML += "Port: " + getinfo.port + "<br />";
-		getinfoHTML += "Version: " + getinfo.version + "<br />";
-		getinfoHTML += "Block Height: " + getinfo.blockheight + "<br />";
-		getinfoHTML += "Lightning Node ID: " + getinfo.id + "<br />";
-
+		if ("message" in getinfo){
+			getinfoHTML += "<br />Error: " + getinfo.message + "<br /><br />";
+			getinfoHTML += "Please make sure the c-lightning daemon is running, and this line is added to your ~/.lighting/config file:<br /><br />";
+			getinfoHTML += "rpc-file=/tmp/lightning-rpc<br /><br />";
+			defaultView();
+			$('#tabs').hide();
+			$('#getinfoBlurb').hide();
+                } else {
+			getinfoHTML += "Network: " + getinfo.network + "<br />";
+			getinfoHTML += "Port: " + getinfo.port + "<br />";
+			getinfoHTML += "Version: " + getinfo.version + "<br />";
+			getinfoHTML += "Block Height: " + getinfo.blockheight + "<br />";
+			getinfoHTML += "Lightning Node ID: " + getinfo.id + "<br />";
+		}
 		$('#getinfoText').html(getinfoHTML);
 	});
 }

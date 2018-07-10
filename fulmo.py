@@ -46,7 +46,12 @@ def withdraw():
 
 @app.route("/getinfo/")
 def get_info():
-	return json.dumps(ln.getinfo())
+	try:
+		result = ln.getinfo()
+	except Exception, e:
+		result = {"message":"Connection refused"}
+
+	return json.dumps(result)
 
 @app.route("/listpayments/")
 def list_payments():

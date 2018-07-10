@@ -169,6 +169,10 @@ def fund_channel(node_id, satoshis):
 	fund_result = ln.fundchannel(node_id, satoshis)
 	return str(fund_result)
 
+@app.route("/stop/")
+def stop():
+        return(json.dumps(ln.stop()))
+
 def qr(data): 
 	img = qrcode.make(data)
 	filename = "static/qrcodes/" + data + ".png"
@@ -195,4 +199,4 @@ def parse_exception(e):
 	return final_dict
 
 if __name__ == "__main__":
-	app.run(host="0.0.0.0",ssl_context='adhoc')
+	app.run(host="0.0.0.0",ssl_context=None)

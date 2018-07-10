@@ -67,6 +67,11 @@ $(document).ready(function() {
 	$('#help').click(function() {
 		help();
 	});
+
+	// stop button event
+	$('#stop').click(function() {
+		stop();
+	});
 	// ------------------------------
 
 	// ------------------------------
@@ -155,19 +160,24 @@ function refresh(){
 	gethistory();
 }
 
+function noDaemon(){
+	defaultView();
+	$('#tabs').hide();
+	$('#getinfoBlurb').hide();
+	$('#getinfoText').html("Stopping daemon");
+}
+
 function getinfo(){
 	$.get( "getinfo/", function( data ) {
 		var getinfo = JSON.parse(data);
 		var getinfoHTML = "";
 
 		if ("message" in getinfo){
+			noDaemon();
 			getinfoHTML += "<br />Error: " + getinfo.message + "<br /><br />";
 			getinfoHTML += "Please make sure the c-lightning daemon is running, and this line is added to your ~/.lighting/config file:<br /><br />";
 			getinfoHTML += "rpc-file=/tmp/lightning-rpc<br /><br />";
-			defaultView();
-			$('#tabs').hide();
-			$('#getinfoBlurb').hide();
-                } else {
+		} else {
 			getinfoHTML += "Network: " + getinfo.network + "<br />";
 			getinfoHTML += "Port: " + getinfo.port + "<br />";
 			getinfoHTML += "Version: " + getinfo.version + "<br />";
@@ -415,8 +425,8 @@ function bolt11(action){
 			gethistory();
 		}else if(action = "decode"){
 			// This field gets hidden/shown based on whether the invoice
-			// has an amount specified.  Sometimes when it's hidden, there
-			// is still an unnesesary value.  Blank it out.
+			// has an amount specified. Sometimes when it's hidden, there
+			// is still an unnesesary value. Blank it out.
 			$('#payInvoiceAmount').val("");
 
 			// if there is no amount, show the input to enter an amount
@@ -514,5 +524,12 @@ function clear(){
 function help(){
 	$.get( "help/", function( data ) {
 		console.log( "LN Help: " + data );
+	});
+}
+
+function stop(){
+	$.get( "stop/", function( data ) {
+		console.log( "c-lightning daemon stopped: ");
+		noDaemon();
 	});
 }

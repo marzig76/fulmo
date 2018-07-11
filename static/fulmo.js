@@ -496,7 +496,7 @@ function listchannels(){
 						channel_html += "Balance: " + channels[key].msatoshi_to_us + " msatoshis<br />";
 						channel_html += "Channel ID: " + channels[key].channel_id + "<br />"
 						channel_html += "Peer ID: " + peers[key].id;
-						channel_html += "<input id='4500" + channels[key].channel_id + "' type='button' class='close_channel' value='Close this Channel'><br />";
+						channel_html += "<input id='" + channels[key].channel_id + "' type='button' class='close_channel' value='Close this Channel'><br />";
 						channel_html += "</div><br />";
 					}
 				}

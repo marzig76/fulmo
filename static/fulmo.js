@@ -197,8 +197,8 @@ function gethistory(){
 		for (var key in payments) {
 			paymentsHTML += "<div class='alt'>";
 			paymentsHTML += "Recipient: " + payments[key]["destination"] + "<br />";
-			paymentsHTML += "Amount: " + payments[key]["msatoshi"] + " msatoshis<br />";
-			paymentsHTML += "Fee: " + (payments[key]["msatoshi_sent"] - payments[key]["msatoshi"]) + " msatoshis<br />";
+			paymentsHTML += "Amount: " + payments[key]["msatoshi"].toLocaleString() + " msatoshis<br />";
+			paymentsHTML += "Fee: " + (payments[key]["msatoshi_sent"] - payments[key]["msatoshi"]).toLocaleString() + " msatoshis<br />";
 			paymentsHTML += "Status: " + payments[key]["status"] + "<br />";
 
 			var sent = new Date(payments[key]["timestamp"] * 1000);
@@ -414,7 +414,7 @@ function bolt11(action){
 		if ("message" in jsonData){
 			response += "Error: " + jsonData.message;
 		}else if (action == "pay"){
-			response += "Amount: " + jsonData.msatoshi + " msatoshi<br />";
+			response += "Amount: " + jsonData.msatoshi.toLocaleString() + " msatoshi<br />";
 			response += "Status: " + jsonData.status + "<br />";
 			response += "Recipient: " + jsonData.destination + "<br />";
 			response += "Payment Hash: " + jsonData.payment_hash;
@@ -435,7 +435,7 @@ function bolt11(action){
 			}else {
 				$('#noAmount').hide();
 			}
-			response += "Amount: " + jsonData.msatoshi + " msatoshi<br />";
+			response += "Amount: " + jsonData.msatoshi.toLocaleString() + " msatoshi<br />";
 			response += "Description: " + jsonData.description + "<br />";
 			response += "Recipient: " + jsonData.payee + "<br />";
 
@@ -493,7 +493,7 @@ function listchannels(){
 						channel_html += "<div class='alt'>";
 						channel_html += "Alias: " + peers[key].alias + "<br />";
 						channel_html += "State: " + channels[key].state + "<br />";
-						channel_html += "Balance: " + channels[key].msatoshi_to_us + " msatoshis<br />";
+						channel_html += "Balance: " + channels[key].msatoshi_to_us.toLocaleString() + " msatoshis<br />";
 						channel_html += "Channel ID: " + channels[key].channel_id + "<br />"
 						channel_html += "Peer ID: " + peers[key].id;
 						channel_html += "<input id='" + channels[key].channel_id + "' type='button' class='close_channel' value='Close this Channel'><br />";

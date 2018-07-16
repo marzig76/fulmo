@@ -495,7 +495,8 @@ function listchannels(){
 						channel_html += "State: " + channels[key].state + "<br />";
 						channel_html += "Balance: " + channels[key].msatoshi_to_us.toLocaleString() + " msatoshis<br />";
 						channel_html += "Channel ID: " + channels[key].channel_id + "<br />"
-						channel_html += "Peer ID: " + peers[key].id;
+						channel_html += "Peer ID: " + peers[key].id + "<br />";
+						channel_html += "Funding TXID: <a href='https://www.smartbit.com.au/tx/" + channels[key].funding_txid + "'>"+ channels[key].funding_txid + "</a><br />";
 						channel_html += "<input id='" + channels[key].channel_id + "' type='button' class='close_channel' value='Close this Channel'><br />";
 						channel_html += "</div><br />";
 					}

@@ -497,7 +497,9 @@ function listchannels(){
 						channel_html += "Channel ID: " + channels[ckey].channel_id + "<br />"
 						channel_html += "Peer ID: " + peers[key].id + "<br />";
 						channel_html += "Funding TXID: <a href='https://www.smartbit.com.au/tx/" + channels[ckey].funding_txid + "'>"+ channels[ckey].funding_txid + "</a><br />";
-						channel_html += "<input id='" + channels[ckey].channel_id + "' type='button' class='close_channel' value='Close this Channel'><br />";
+						if (channels[ckey].state == "CHANNELD_NORMAL"){
+							channel_html += "<input id='" + channels[ckey].channel_id + "' type='button' class='close_channel' value='Close this Channel'><br />";
+						}
 						channel_html += "</div><br />";
 					}
 				}

@@ -454,7 +454,7 @@ function bolt11(action){
 function getbalances(){
 	$.get( "listfunds/", function( data ) {
 		var response = JSON.parse(data);
-		var balance = response.balance * 0.00000001
+		var balance = (response.balance * 0.00000001).toFixed(8);
 		console.log("onchain balance: " + balance);
 		$('#onchainbalance').html("<br />On-chain Balance: " + balance + " BTC<br />");
 	});

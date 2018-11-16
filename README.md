@@ -40,3 +40,5 @@ Notes
 This will set up a web UI for your locally running c-lightning node.  By default, it will use an unencrypted connection.  If you want an encrypted connection with automatically generated self-signed certs, you can specify the ```--ssl``` command line argument: ```./fulmo --ssl```.  Then use https when connecting.
 
 The service binds to all local interfaces, so it will be accessable to your entire local network.  This is ideal for running it on a raspberry pi, then accessing it from another device on your network like your laptop or smart phone.
+
+This uses python2, so if you're having any errors, or if you know that your `python` command maps to python3, try installing the dependencies with pip2 instead of pip, and running with python2, instead of python.

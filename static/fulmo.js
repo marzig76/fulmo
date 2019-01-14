@@ -203,7 +203,7 @@ function gethistory(){
 			paymentsHTML += "Fee: " + (payments[key]["msatoshi_sent"] - payments[key]["msatoshi"]).toLocaleString() + " msatoshis<br />";
 			paymentsHTML += "Status: " + payments[key]["status"] + "<br />";
 
-			var sent = new Date(payments[key]["timestamp"] * 1000);
+			var sent = new Date(payments[key]["created_at"] * 1000);
 			paymentsHTML += "Sent At: " + sent.toLocaleString("en-US") + "<br />";
 			paymentsHTML += "</div>";
 		}

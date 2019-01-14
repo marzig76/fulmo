@@ -175,7 +175,13 @@ def stop():
 
 def qr(data): 
 	img = qrcode.make(data)
-	filename = "static/qrcodes/" + data + ".png"
+	# Using the invoice for the filename was causing i/o errors because of the length.
+	# Shorten the filename if it's an invoice.
+	if data[:9] == "lightning":
+		basename = data[15:47]
+	else:
+		basename = data
+	filename = "static/qrcodes/" + basename + ".png"
 	img.save(filename)
 	return filename
 

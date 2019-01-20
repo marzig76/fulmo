@@ -57,6 +57,15 @@ def get_info():
 def list_payments():
         return json.dumps(ln.listpayments())
 
+@app.route("/earnedfees/")
+def earned_fees():
+	earned_fees = 0
+	forwards = ln.listforwards()
+	for details in forwards["forwards"]:
+		if details["status"] == "settled":
+			earned_fees = earned_fees + details["fee"]
+        return json.dumps({"earned_fees": earned_fees})
+
 @app.route("/listfunds/")
 def list_funds():
 	balance = 0;

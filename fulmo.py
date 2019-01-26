@@ -36,9 +36,10 @@ def new_address():
 def withdraw():
 	addr = request.args.get("addr")
 	amount = request.args.get("amount")
+	feerate = request.args.get('feerate')
 
 	try:
-		result = ln.withdraw(addr, amount)
+		result = ln.withdraw(addr, amount, feerate)
 	except ValueError, e:
 		result = parse_exception(e)
 

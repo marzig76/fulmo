@@ -303,14 +303,14 @@ function getNewAddr(){
 function withdraw(){
 	var addr = $('#withdrawAddress').val();
 	var amount = Number($('#withdrawAmount').val());
-
+	var feerate = $('#feerate').val();
 	var withdrawURL = "withdraw/?addr=" + addr;
 
 	if ($('#withdrawAll').is(':checked')){
 		amount = "all";
 	}
 
-	var withdrawURL = "withdraw/?addr=" + addr + "&amount=" + amount;
+	var withdrawURL = "withdraw/?addr=" + addr + "&amount=" + amount + "&feerate=" + feerate;
 
 	$.get( withdrawURL, function( data ) {
 		var jsonData = JSON.parse(data);

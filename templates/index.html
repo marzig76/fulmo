@@ -90,6 +90,12 @@
 		<input id="withdrawAmount" type="text" value=""/><br />
 		<label for="withdrawAll">Send all on-chain funds?</label>
 		<input id="withdrawAll" type="checkbox"/><br /><br />
+		<label for="feerate">Fee Rate:</label>
+		<select id="feerate" name="feerate">
+			<option value="normal" selected="selected">Normal</option>
+			<option value="urgent">Urgent</option>
+			<option value="slow">Slow</option>
+		</select><br />
 		<input id="withdrawButton" type="button" value="Send"/>
 	</div>
 	<div id="invoices" class="lightningwallet">

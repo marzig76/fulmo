@@ -65,6 +65,11 @@ input[type="button"] {
 	margin: 10px;
 }
 
+.invoicehistory {
+	width: 700px;
+	margin: 10px;
+}
+
 .buttons{
 	width: 700px;
 	margin: 10px;

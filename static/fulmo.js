@@ -58,6 +58,11 @@ $(document).ready(function() {
 		bolt11("pay");
 	});
 
+	// delete invoices button event
+	$('#delexpiredinvoice').click(function() {
+		delexpiredinvoice();
+	});
+
 	// clear button event
 	$('#clear').click(function() {
 		clear();
@@ -111,6 +116,12 @@ $(document).ready(function() {
 		$('.history').show();
 	});
 
+	// show LN invoice history
+	$('#showinvoicehistory').click(function() {
+		hideAll();
+		$('.invoicehistory').show();
+	});
+
 	// show all
 	$('#showall').click(function() {
 		showAll();
@@ -139,6 +150,7 @@ function hideAll(){
 	$('.lightningwallet').hide();
 	$('#noAmount').hide();
 	$('.history').hide();
+	$('.invoicehistory').hide();
 	$('.buttons').hide();
 }
 
@@ -149,6 +161,7 @@ function showAll(){
 	$('.onchainwallet').show();
 	$('.lightningwallet').show();
 	$('.history').show();
+	$('.invoicehistory').show();
 	$('.buttons').show();
 }
 
@@ -158,6 +171,7 @@ function refresh(){
 	listchannels();
 	getbalances();
 	gethistory();
+	invoicehistory();
 }
 
 function noDaemon(){
@@ -210,6 +224,31 @@ function gethistory(){
 		}
 
 		$('#historyText').html(paymentsHTML);
+	});
+}
+
+function invoicehistory(){
+	$.get( "listinvoices/", function( data ){
+		var response = JSON.parse(data);
+		var invoices = JSON.parse(JSON.stringify(response["invoices"]));
+		var invoicesHTML = "<br />";
+
+		for (var key in invoices){
+			invoicesHTML += "<div class='alt'>";
+			invoicesHTML += "Description: " + invoices[key]["description"] + "<br />";
+			invoicesHTML += "Amount: " + invoices[key]["msatoshi"].toLocaleString() + " msatoshis<br />";
+			invoicesHTML += "Status: " + invoices[key]["status"] + "<br />";
+			var expires = new Date(invoices[key]["expires_at"] * 1000);
+			invoicesHTML += "Expires At: " + expires.toLocaleString("en-US") + "<br />";
+			invoicesHTML += "</div>";
+		}
+		$('#invoiceHistoryText').html(invoicesHTML);
+	});
+}
+
+function delexpiredinvoice(){
+	$.get( "delexpiredinvoice/", function( data ){
+		invoicehistory();
 	});
 }
 

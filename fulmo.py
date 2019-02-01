@@ -58,6 +58,14 @@ def get_info():
 def list_payments():
         return json.dumps(ln.listpayments())
 
+@app.route("/listinvoices/")
+def list_invoices():
+        return json.dumps(ln.listinvoices())
+
+@app.route("/delexpiredinvoice/")
+def del_expired_invoice():
+        return json.dumps(ln.delexpiredinvoice())
+
 @app.route("/earnedfees/")
 def earned_fees():
 	earned_fees = 0

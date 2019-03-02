@@ -236,7 +236,12 @@ function invoicehistory(){
 		for (var key in invoices){
 			invoicesHTML += "<div class='alt'>";
 			invoicesHTML += "Description: " + invoices[key]["description"] + "<br />";
-			invoicesHTML += "Amount: " + invoices[key]["msatoshi"].toLocaleString() + " msatoshis<br />";
+			
+			if ("msatoshi" in invoices[key]){
+				invoicesHTML += "Amount: " + invoices[key]["msatoshi"].toLocaleString() + " msatoshis<br />";
+			}else {
+				invoicesHTML += "Amount: No Amount Specified<br />";
+			}
 			invoicesHTML += "Status: " + invoices[key]["status"] + "<br />";
 			var expires = new Date(invoices[key]["expires_at"] * 1000);
 			invoicesHTML += "Expires At: " + expires.toLocaleString("en-US") + "<br />";

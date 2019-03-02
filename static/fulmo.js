@@ -482,7 +482,9 @@ function bolt11(action){
 			}else {
 				$('#noAmount').hide();
 			}
-			response += "Amount: " + jsonData.msatoshi.toLocaleString() + " msatoshi<br />";
+			if ("msatoshi" in jsonData){
+				response += "Amount: " + jsonData.msatoshi.toLocaleString() + " msatoshi<br />";
+			}
 			response += "Description: " + jsonData.description + "<br />";
 			response += "Recipient: " + jsonData.payee + "<br />";
 

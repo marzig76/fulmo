@@ -515,11 +515,11 @@ function getbalances(){
 
 function earnedFees(){
 	$.get( "earnedfees/", function( data ) {
-                var response = JSON.parse(data);
-                var fees = response.earned_fees.toLocaleString();
-                console.log("earned fees: " + fees);
-                $('#earnedfees').html("<br />You've earned " + fees + " msatoshis by routing Lighting payments.");
-        });
+		var response = JSON.parse(data);
+		var fees = response.earned_fees.toLocaleString();
+		console.log("earned fees: " + fees);
+		$('#earnedfees').html("<br />You've earned " + fees + " msatoshis by routing Lighting payments.");
+	});
 }
 
 function listchannels(){

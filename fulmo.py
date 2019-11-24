@@ -56,7 +56,7 @@ def get_info():
 
 @app.route("/listpayments/")
 def list_payments():
-        return json.dumps(ln.listpayments())
+        return json.dumps(ln.listsendpays())
 
 @app.route("/listinvoices/")
 def list_invoices():

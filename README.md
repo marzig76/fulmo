@@ -14,7 +14,7 @@ sudo apt-get install python python-pip python-dev build-essential git
 
 Install the following python modules:
 ```shell
-sudo pip install pylightning Flask qrcode[pil]
+sudo pip install pylightning==0.0.6 Flask qrcode[pil]
 ```
 
 Installation
